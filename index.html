@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<title>UFX — Real-Time Technology Studio | Digital Twins, Virtual Production &amp; VFX</title>
+<meta name="description" content="UFX is a real-time technology studio building digital twins, virtual production and VFX in Unreal Engine — real worlds rebuilt into interactive, immersive experiences.">
+<style>
+  html,body{margin:0;background:#0a0a0c;}
+  *{box-sizing:border-box;}
+  ::selection{background:rgba(255,255,255,.16);}
+</style>
+</helmet>
+
+<div style="background:#0a0a0c;color:#f2f2f4;font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip;">
+
+  <!-- ============ NAV ============ -->
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(24px,4vw,56px);background:rgba(10,10,12,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);">
+    <div style="font-weight:800;font-size:21px;letter-spacing:0.06em;">UFX</div>
+    <nav style="display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:clamp(16px,3vw,34px);">
+      <a href="#services" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">SERVICES</a>
+      <a href="#featured" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">FEATURED</a>
+      <a href="#edge" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">ABOUT US</a>
+      <a href="#contact" style="margin-left:6px;white-space:nowrap;background:transparent;color:#f2f2f4;padding:10px 18px;border-radius:100px;font:600 12px/1 'Archivo';letter-spacing:0.04em;border:1px solid rgba(255,255,255,.28);text-decoration:none;transition:.25s;" style-hover="background:rgba(255,255,255,.08);border-color:#f2f2f4;">Let's Talk</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO (full-bleed, scroll-scrubbed video) ============ -->
+  <section id="ufx-hero-scroll" style="position:relative;height:{{ scrubHeight }};border-bottom:1px solid rgba(255,255,255,.08);">
+    <div id="ufx-hero-sticky" style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;background:radial-gradient(120% 120% at 70% 18%, #1a1a1e 0%, #0a0a0c 66%);">
+      <video id="ufx-hero-video" src="hero.mp4" muted="" playsinline="" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;-webkit-mask-image:radial-gradient(ellipse 94% 92% at 50% 48%, #000 50%, rgba(0,0,0,0) 100%);mask-image:radial-gradient(ellipse 94% 92% at 50% 48%, #000 50%, rgba(0,0,0,0) 100%);"></video>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(95deg, rgba(8,8,10,.86) 0%, rgba(8,8,10,.55) 34%, rgba(8,8,10,.12) 66%, rgba(8,8,10,.4) 100%);"></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom, rgba(8,8,10,.55) 0%, transparent 22%, transparent 54%, rgba(8,8,10,.82) 100%);"></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 84% at 50% 46%, transparent 40%, rgba(6,6,8,.5) 76%, rgba(6,6,8,.9) 100%);"></div>
+
+      <div id="ufx-hero-content" style="position:relative;z-index:2;width:100%;max-width:1320px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(24px,4vw,56px) clamp(96px,11vw,150px);display:flex;flex-direction:column;justify-content:center;align-items:{{ heroItems }};text-align:{{ heroText }};will-change:transform,opacity;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;">
+          <span style="width:24px;height:1px;background:{{ accent }};display:inline-block;"></span>
+          <span style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.22em;color:rgba(242,242,244,.74);">REAL-TIME TECHNOLOGY STUDIO</span>
+        </div>
+        <h1 style="margin:0;font-weight:800;font-size:clamp(40px,5vw,82px);line-height:0.95;letter-spacing:-0.025em;text-shadow:0 2px 40px rgba(0,0,0,.45);">REAL WORLDS.<br>DIGITAL<br>POSSIBILITIES.</h1>
+        <p style="margin:30px 0 0;max-width:480px;font-size:clamp(15px,1.2vw,18px);line-height:1.55;color:rgba(242,242,244,.78);">We transform reality through real-time technology and immersive storytelling — built in Unreal Engine.</p>
+      </div>
+
+      <!-- scroll progress + cue -->
+      <div id="ufx-hero-cue" style="position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none;">
+        <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.55);">SCROLL</span>
+        <span style="width:1px;height:34px;background:linear-gradient(to bottom, rgba(242,242,244,.6), transparent);display:inline-block;"></span>
+      </div>
+
+      <!-- bottom meta strip -->
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:2;max-width:1320px;margin:0 auto;padding:0 clamp(24px,4vw,56px) 28px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;pointer-events:none;flex-wrap:wrap;">
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.5);">UNREAL ENGINE</span>
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.5);">DIGITAL TWINS</span>
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.5);">VIRTUAL PRODUCTION</span>
+        </div>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;color:rgba(242,242,244,.72);background:rgba(10,10,12,.5);padding:6px 10px;border:1px solid rgba(255,255,255,.12);">VOL.01 — REAL-TIME RENDER</span>
+      </div>
+      <!-- scrub progress bar -->
+      <div style="position:absolute;left:0;right:0;bottom:0;height:2px;z-index:3;background:rgba(255,255,255,.08);"><div id="ufx-hero-bar" style="height:100%;width:0%;background:{{ accent }};transition:none;"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES STATEMENT ============ -->
+  <section style="padding:clamp(64px,8vw,120px) clamp(24px,4vw,56px);">
+    <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:clamp(32px,5vw,64px);align-items:center;">
+      <div>
+        <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:24px;">(01) — APPROACH</div>
+        <h2 style="margin:0;font-weight:800;font-size:clamp(34px,4.2vw,60px);line-height:1.0;letter-spacing:-0.025em;">BESPOKE SOLUTIONS<br>BUILT FOR IMPACT.</h2>
+        <p style="margin:28px 0 0;max-width:440px;font-size:16px;line-height:1.6;color:rgba(242,242,244,.62);">Every project starts with the real world. We capture it, rebuild it in Unreal Engine, and turn it into experiences that inform, engage and inspire.</p>
+        <a href="#services" style="margin-top:36px;display:inline-flex;align-items:center;gap:10px;background:transparent;color:#f2f2f4;padding:14px 22px;border-radius:100px;font:600 13px/1 'Archivo';border:1px solid rgba(255,255,255,.28);text-decoration:none;transition:.25s;" style-hover="background:rgba(255,255,255,.07);border-color:#f2f2f4;">View All Services <span>→</span></a>
+      </div>
+
+      <!-- twin-panel gallery: tall full-bleed slices; hovered expands to full frame -->
+      <div style="display:flex;gap:10px;width:100%;aspect-ratio:1.95;">
+        <div onMouseEnter="{{ hov0 }}" onMouseLeave="{{ hovOff }}" style="position:relative;flex-grow:{{ b0 }};flex-shrink:1;flex-basis:0;min-width:0;height:100%;overflow:hidden;border:1px solid rgba(255,255,255,.12);cursor:pointer;background:#08080a;transition:flex-grow .8s cubic-bezier(.45,0,.15,1);">
+          <img src="twin-london.png" alt="London street digital twin in Unreal Engine" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;" />
+        </div>
+        <div onMouseEnter="{{ hov1 }}" onMouseLeave="{{ hovOff }}" style="position:relative;flex-grow:{{ b1 }};flex-shrink:1;flex-basis:0;min-width:0;height:100%;overflow:hidden;border:1px solid rgba(255,255,255,.12);cursor:pointer;background:#08080a;transition:flex-grow .8s cubic-bezier(.45,0,.15,1);">
+          <img src="twin-offices.png" alt="Office interior digital twin in Unreal Engine" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;" />
+        </div>
+        <div onMouseEnter="{{ hov2 }}" onMouseLeave="{{ hovOff }}" style="position:relative;flex-grow:{{ b2 }};flex-shrink:1;flex-basis:0;min-width:0;height:100%;overflow:hidden;border:1px solid rgba(255,255,255,.12);cursor:pointer;background:#08080a;transition:flex-grow .8s cubic-bezier(.45,0,.15,1);">
+          <img src="twin-museum.png" alt="Museum gallery digital twin in Unreal Engine" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;" />
+        </div>
+        <div onMouseEnter="{{ hov3 }}" onMouseLeave="{{ hovOff }}" style="position:relative;flex-grow:{{ b3 }};flex-shrink:1;flex-basis:0;min-width:0;height:100%;overflow:hidden;border:1px solid rgba(255,255,255,.12);cursor:pointer;background:#08080a;transition:flex-grow .8s cubic-bezier(.45,0,.15,1);">
+          <img src="twin-villa.png" alt="Luxury villa digital twin in Unreal Engine" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;" />
+        </div>
+        <div onMouseEnter="{{ hov4 }}" onMouseLeave="{{ hovOff }}" style="position:relative;flex-grow:{{ b4 }};flex-shrink:1;flex-basis:0;min-width:0;height:100%;overflow:hidden;border:1px solid rgba(255,255,255,.12);cursor:pointer;background:#08080a;transition:flex-grow .8s cubic-bezier(.45,0,.15,1);">
+          <img src="casepak-composite.png" alt="Casepak digital twin composite — capture, rebuild in Unreal Engine, experience" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES INDEX ============ -->
+  <section id="services" style="padding:clamp(64px,8vw,120px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px;flex-wrap:wrap;">
+        <div>
+          <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:18px;">(02) — CAPABILITIES</div>
+          <h2 style="margin:0;font-weight:700;font-size:clamp(28px,3.4vw,46px);line-height:1.04;letter-spacing:-0.02em;max-width:14ch;">What we build with real-time technology.</h2>
+        </div>
+        <a href="#services" style="font:600 13px/1 'Archivo';color:#f2f2f4;text-decoration:none;display:inline-flex;align-items:center;gap:9px;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:6px;transition:.25s;" style-hover="border-color:{{ accent }};">All Services <span>→</span></a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+        <!-- 01 Digital Twins (primary) -->
+        <a href="#services" onMouseEnter="{{ svcEnter0 }}" onMouseLeave="{{ svcLeave0 }}" style="position:relative;text-decoration:none;color:inherit;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.12);background:#0c0c0e;overflow:hidden;transform-origin:center;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s;transform:{{ svcScale0 }};border-color:{{ svcBorder0 }};">
+          <div style="position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#08080a;border-bottom:1px solid rgba(255,255,255,.1);">
+            <video id="svc-vid-0" src="twin-flythrough.mp4" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(8,8,10,.55) 0%, transparent 55%);pointer-events:none;opacity:{{ svcVeil0 }};transition:opacity .4s;"></div>
+            <span style="position:absolute;left:14px;top:13px;font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;color:{{ accent }};border:1px solid {{ accent }};padding:5px 8px;border-radius:100px;background:rgba(8,8,10,.4);">PRIMARY</span>
+          </div>
+          <div style="position:relative;padding:24px 22px 30px;display:flex;flex-direction:column;min-height:150px;">
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:rgba(242,242,244,.4);">01</span>
+            <h3 style="margin:18px 0 12px;font-weight:700;font-size:21px;letter-spacing:-0.01em;">Digital Twins</h3>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:rgba(242,242,244,.55);">Living digital replicas of real-world sites, environments and assets.</p>
+            <span style="position:absolute;right:22px;bottom:28px;font-size:16px;color:{{ accent }};">→</span>
+          </div>
+        </a>
+        <!-- 02 Virtual Production -->
+        <a href="#services" onMouseEnter="{{ svcEnter1 }}" onMouseLeave="{{ svcLeave1 }}" style="position:relative;text-decoration:none;color:inherit;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.12);background:#0c0c0e;overflow:hidden;transform-origin:center;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s;transform:{{ svcScale1 }};border-color:{{ svcBorder1 }};">
+          <div style="position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#08080a;border-bottom:1px solid rgba(255,255,255,.1);">
+            <video id="svc-vid-1" src="mocap-clip.mp4" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(8,8,10,.55) 0%, transparent 55%);pointer-events:none;opacity:{{ svcVeil1 }};transition:opacity .4s;"></div>
+          </div>
+          <div style="position:relative;padding:24px 22px 30px;display:flex;flex-direction:column;min-height:150px;">
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:rgba(242,242,244,.4);">02</span>
+            <h3 style="margin:18px 0 12px;font-weight:700;font-size:21px;letter-spacing:-0.01em;">Virtual Production</h3>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:rgba(242,242,244,.55);">Real-time broadcast and LED-volume production environments.</p>
+            <span style="position:absolute;right:22px;bottom:28px;font-size:16px;color:rgba(242,242,244,.55);">→</span>
+          </div>
+        </a>
+        <!-- 03 Motion Capture -->
+        <a href="#services" onMouseEnter="{{ svcEnter2 }}" onMouseLeave="{{ svcLeave2 }}" style="position:relative;text-decoration:none;color:inherit;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.12);background:#0c0c0e;overflow:hidden;transform-origin:center;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s;transform:{{ svcScale2 }};border-color:{{ svcBorder2 }};">
+          <div style="position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#08080a;border-bottom:1px solid rgba(255,255,255,.1);">
+            <video id="svc-vid-2" src="motioncapture-clip.mp4" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(8,8,10,.55) 0%, transparent 55%);pointer-events:none;opacity:{{ svcVeil2 }};transition:opacity .4s;"></div>
+          </div>
+          <div style="position:relative;padding:24px 22px 30px;display:flex;flex-direction:column;min-height:150px;">
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:rgba(242,242,244,.4);">03</span>
+            <h3 style="margin:18px 0 12px;font-weight:700;font-size:21px;letter-spacing:-0.01em;">Motion Capture</h3>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:rgba(242,242,244,.55);">Performance and movement capture for character and animation.</p>
+            <span style="position:absolute;right:22px;bottom:28px;font-size:16px;color:rgba(242,242,244,.55);">→</span>
+          </div>
+        </a>
+        <!-- 04 Animation & VFX -->
+        <a href="#services" onMouseEnter="{{ svcEnter3 }}" onMouseLeave="{{ svcLeave3 }}" style="position:relative;text-decoration:none;color:inherit;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.12);background:#0c0c0e;overflow:hidden;transform-origin:center;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s;transform:{{ svcScale3 }};border-color:{{ svcBorder3 }};">
+          <div style="position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#08080a;border-bottom:1px solid rgba(255,255,255,.1);">
+            <video id="svc-vid-3" src="vfx-clip.mp4#t=65" muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.5);transform-origin:48% center;"></video>
+            <div style="position:absolute;top:0;left:0;width:46%;height:30%;background:radial-gradient(ellipse at top left, #000 52%, rgba(0,0,0,0) 85%);pointer-events:none;"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(8,8,10,.55) 0%, transparent 55%);pointer-events:none;opacity:{{ svcVeil3 }};transition:opacity .4s;"></div>
+          </div>
+          <div style="position:relative;padding:24px 22px 30px;display:flex;flex-direction:column;min-height:150px;">
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:rgba(242,242,244,.4);">04</span>
+            <h3 style="margin:18px 0 12px;font-weight:700;font-size:21px;letter-spacing:-0.01em;">Animation &amp; VFX</h3>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:rgba(242,242,244,.55);">Cinematic animation and visual effects rendered in real time.</p>
+            <span style="position:absolute;right:22px;bottom:28px;font-size:16px;color:rgba(242,242,244,.55);">→</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED PROJECT ============ -->
+  <section id="featured" style="padding:clamp(56px,7vw,104px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);background:#0c0c0e;">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:30px;flex-wrap:wrap;">
+        <div>
+          <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:18px;">(03) — FEATURED CASE STUDY</div>
+          <h2 style="margin:0;font-weight:800;font-size:clamp(34px,4.6vw,68px);line-height:0.98;letter-spacing:-0.025em;">CASEPAK<br>DIGITAL TWIN</h2>
+        </div>
+        <span style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;color:rgba(242,242,244,.45);padding-bottom:6px;">DIGITAL TWIN · UNREAL ENGINE · 3DGS</span>
+      </div>
+
+      <p style="margin:0 0 30px;max-width:760px;font-size:clamp(15px,1.3vw,19px);line-height:1.55;color:rgba(242,242,244,.74);">A real-time, interactive digital twin of Casepak — a complex industrial recycling facility — rebuilt from over 200,000 drone and LiDAR images and deployed in Unreal Engine for training, maintenance and operational planning.</p>
+
+      <div style="position:relative;width:100%;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.1);background:radial-gradient(120% 120% at 50% 30%, #18181c 0%, #0a0a0c 70%);overflow:hidden;">
+        <img src="featured.webp" alt="Casepak digital twin — real-time still in Unreal Engine" style="display:block;width:100%;height:100%;object-fit:cover;">
+      </div>
+
+      <!-- stats -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;margin-top:48px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);">
+        <div style="background:#0c0c0e;padding:26px 22px;">
+          <div style="font-weight:800;font-size:clamp(26px,2.8vw,38px);letter-spacing:-0.02em;">200K+</div>
+          <div style="font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;color:rgba(242,242,244,.5);margin-top:10px;">IMAGES CAPTURED</div>
+        </div>
+        <div style="background:#0c0c0e;padding:26px 22px;">
+          <div style="font-weight:800;font-size:clamp(26px,2.8vw,38px);letter-spacing:-0.02em;">60+ FPS</div>
+          <div style="font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;color:rgba(242,242,244,.5);margin-top:10px;">REAL-TIME AT 4K</div>
+        </div>
+        <div style="background:#0c0c0e;padding:26px 22px;">
+          <div style="font-weight:800;font-size:clamp(26px,2.8vw,38px);letter-spacing:-0.02em;">Sub-mm</div>
+          <div style="font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;color:rgba(242,242,244,.5);margin-top:10px;">ENGINEERING PRECISION</div>
+        </div>
+        <div style="background:#0c0c0e;padding:26px 22px;">
+          <div style="font-weight:800;font-size:clamp(26px,2.8vw,38px);letter-spacing:-0.02em;">TB-scale</div>
+          <div style="font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;color:rgba(242,242,244,.5);margin-top:10px;">DATASET, OPTIMISED</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(24px,4vw,56px);margin-top:48px;">
+        <div style="border-top:1px solid rgba(255,255,255,.16);padding-top:22px;">
+          <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:{{ accent }};margin-bottom:16px;">CHALLENGE</div>
+          <p style="margin:0;font-size:15px;line-height:1.55;color:rgba(242,242,244,.7);">Intricate machinery layouts and a ~200,000-image dataset demanded sub-millimetre accuracy. Traditional photogrammetry couldn't process or deploy it in real time.</p>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.16);padding-top:22px;">
+          <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:{{ accent }};margin-bottom:16px;">TECHNOLOGY</div>
+          <p style="margin:0;font-size:15px;line-height:1.55;color:rgba(242,242,244,.7);">Hybrid capture with the XGRIDS Portal Cam, Gaussian Splatting, and Volinga converting raw PLY into optimised NVOL assets — deployed natively in Unreal Engine.</p>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.16);padding-top:22px;">
+          <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:{{ accent }};margin-bottom:16px;">RESULTS</div>
+          <p style="margin:0;font-size:15px;line-height:1.55;color:rgba(242,242,244,.7);">A static dataset became a fully navigable real-time environment with live overlays for equipment specs, maintenance schedules and operational insights.</p>
+        </div>
+      </div>
+
+      <!-- quote -->
+      <figure style="margin:52px 0 0;max-width:980px;">
+        <blockquote style="margin:0;font-weight:600;font-size:clamp(20px,2.4vw,32px);line-height:1.28;letter-spacing:-0.015em;color:#f2f2f4;">“Volinga is the enabling layer that turns raw spatial data into a usable product. Without it, this project would remain a dataset, not an experience.”</blockquote>
+        <figcaption style="margin-top:20px;font:500 12px/1.5 'IBM Plex Mono',monospace;letter-spacing:0.06em;color:rgba(242,242,244,.55);">KESHAVA WALCOTT — TECHNICAL DIRECTOR &amp; FOUNDER, UFX</figcaption>
+      </figure>
+
+      <!-- separate recognitions -->
+      <div style="margin-top:48px;padding-top:30px;border-top:1px solid rgba(255,255,255,.16);">
+        <div style="font:800 15px/1 'Archivo';letter-spacing:0.02em;color:#f2f2f4;margin-bottom:24px;">Featured</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:clamp(20px,3vw,40px);">
+          <a href="https://web.volinga.ai/building-a-real-time-interactive-digital-twin-for-casepak/" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:16px;padding:22px 24px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.015);text-decoration:none;color:inherit;transition:.25s;" style-hover="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.2);">
+            <span style="font:500 11px/1 'IBM Plex Mono',monospace;color:{{ accent }};margin-top:3px;">↗</span>
+            <div>
+              <div style="font-weight:700;font-size:17px;letter-spacing:-0.01em;margin-bottom:6px;">Volinga</div>
+              <p style="margin:0;font-size:13px;line-height:1.5;color:rgba(242,242,244,.6);">Featured the Casepak project as a showcase on the Volinga website.</p>
+            </div>
+          </a>
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:22px 24px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.015);">
+            <span style="font:500 11px/1 'IBM Plex Mono',monospace;color:{{ accent }};margin-top:3px;">↗</span>
+            <div>
+              <div style="font-weight:700;font-size:17px;letter-spacing:-0.01em;margin-bottom:6px;">Recycle Now</div>
+              <p style="margin:0;font-size:13px;line-height:1.5;color:rgba(242,242,244,.6);">Shared the work separately across their own channels.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE UFX EDGE (USP / OFFER) ============ -->
+  <section id="edge" style="padding:clamp(64px,8vw,120px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);background:#0c0c0e;">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:clamp(28px,4vw,64px);align-items:end;margin-bottom:clamp(40px,5vw,64px);">
+        <div>
+          <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:22px;">(04) — THE UFX EDGE</div>
+          <h2 style="margin:0;font-weight:800;font-size:clamp(34px,4.6vw,64px);line-height:0.98;letter-spacing:-0.025em;">MORE THAN A SCAN.<br>A STORY THAT TRAVELS.</h2>
+        </div>
+        <p style="margin:0;font-size:clamp(15px,1.3vw,18px);line-height:1.6;color:rgba(242,242,244,.66);">Every UFX project delivers twice — a precision real-time asset your team can actually use, and a social-ready content layer that puts the work in front of the world. One engagement, two forms of return.</p>
+      </div>
+
+      <!-- dual offer -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:clamp(16px,2.5vw,28px);">
+        <div style="position:relative;padding:clamp(28px,3vw,40px);border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.015);display:flex;flex-direction:column;min-height:280px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:auto;">
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:rgba(242,242,244,.45);">01</span>
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.45);">THE ASSET</span>
+          </div>
+          <h3 style="margin:34px 0 14px;font-weight:700;font-size:clamp(22px,2.2vw,30px);letter-spacing:-0.015em;">The Digital Twin</h3>
+          <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,244,.6);max-width:42ch;">A precise, real-time replica of your site or product — built in Unreal Engine for training, maintenance, sales and operational planning. A tool your business keeps and reuses.</p>
+        </div>
+
+        <div style="position:relative;padding:clamp(28px,3vw,40px);border:1px solid {{ accent }};background:rgba(255,255,255,.04);display:flex;flex-direction:column;min-height:280px;overflow:hidden;">
+          <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 120% at 100% 0%, rgba(255,255,255,.06) 0%, transparent 55%);"></div>
+          <div style="position:relative;display:flex;align-items:center;justify-content:space-between;margin-bottom:auto;">
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:{{ accent }};">02</span>
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:{{ accent }};border:1px solid {{ accent }};padding:5px 9px;border-radius:100px;">THE MULTIPLIER</span>
+          </div>
+          <h3 style="position:relative;margin:34px 0 14px;font-weight:700;font-size:clamp(22px,2.2vw,30px);letter-spacing:-0.015em;">The Content Wrap-Up</h3>
+          <p style="position:relative;margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,244,.7);max-width:42ch;">A social-ready edit that showcases the build and its transferable application — engineered to earn organic reach and earned-media pickup. Our Casepak wrap-up was picked up by <strong style="color:#f2f2f4;font-weight:700;">Recycle Now</strong>, putting the project in front of an audience far beyond the brief.</p>
+        </div>
+      </div>
+
+      <!-- pipeline -->
+      <div style="margin-top:clamp(40px,5vw,64px);border-top:1px solid rgba(255,255,255,.12);padding-top:30px;">
+        <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.45);margin-bottom:24px;">ONE PIPELINE — END TO END</div>
+        <div style="display:flex;align-items:center;gap:clamp(10px,2vw,22px);flex-wrap:wrap;">
+          <span style="font-weight:700;font-size:clamp(18px,2.4vw,30px);letter-spacing:-0.01em;color:rgba(242,242,244,.92);">Capture</span>
+          <span style="font:500 16px/1 'IBM Plex Mono',monospace;color:{{ accent }};">→</span>
+          <span style="font-weight:700;font-size:clamp(18px,2.4vw,30px);letter-spacing:-0.01em;color:rgba(242,242,244,.92);">Build</span>
+          <span style="font:500 16px/1 'IBM Plex Mono',monospace;color:{{ accent }};">→</span>
+          <span style="font-weight:700;font-size:clamp(18px,2.4vw,30px);letter-spacing:-0.01em;color:rgba(242,242,244,.92);">Deploy</span>
+          <span style="font:500 16px/1 'IBM Plex Mono',monospace;color:{{ accent }};">→</span>
+          <span style="font-weight:800;font-size:clamp(18px,2.4vw,30px);letter-spacing:-0.01em;color:#f2f2f4;">Amplify</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER CTA ============ -->
+  <footer id="contact" style="padding:clamp(64px,8vw,128px) clamp(24px,4vw,56px) 40px;border-top:1px solid rgba(255,255,255,.08);background:#08080a;">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:30px;">(05) — CONTACT US</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:clamp(40px,6vw,88px);align-items:start;">
+        <div>
+          <h2 style="margin:0;font-weight:800;font-size:clamp(38px,5vw,76px);line-height:0.96;letter-spacing:-0.03em;max-width:13ch;">LET'S CREATE SOMETHING EXTRAORDINARY.</h2>
+          <p style="margin:28px 0 0;max-width:42ch;font-size:16px;line-height:1.6;color:rgba(242,242,244,.64);">Tell us about your project and we'll get back to you. Leave a message below or email us directly.</p>
+          <a href="mailto:info@upworldfx.com" style="display:inline-block;margin-top:22px;font:500 15px/1 'IBM Plex Mono',monospace;color:#f2f2f4;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:5px;transition:.2s;" style-hover="border-color:#f2f2f4;">info@upworldfx.com</a>
+        </div>
+
+        <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;">
+            <input value="{{ fName }}" onChange="{{ setName }}" type="text" placeholder="Name" required style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:rgba(255,255,255,.4);" />
+            <input value="{{ fEmail }}" onChange="{{ setEmail }}" type="email" placeholder="Email" required style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:rgba(255,255,255,.4);" />
+          </div>
+          <input value="{{ fCompany }}" onChange="{{ setCompany }}" type="text" placeholder="Company (optional)" style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:rgba(255,255,255,.4);" />
+          <textarea value="{{ fMessage }}" onChange="{{ setMessage }}" placeholder="Your message" required rows="5" style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1.5 'Archivo';color:#f2f2f4;outline:none;resize:vertical;transition:.2s;" style-focus="border-color:rgba(255,255,255,.4);"></textarea>
+          <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+            <button type="submit" style="background:#f2f2f4;color:#0a0a0c;padding:15px 28px;border-radius:100px;font:600 14px/1 'Archivo';white-space:nowrap;border:1px solid #f2f2f4;cursor:pointer;transition:.25s;" style-hover="background:transparent;color:#f2f2f4;">Send Message</button>
+            <span style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:{{ accent }};opacity:{{ sentOpacity }};transition:opacity .3s;">{{ sentMsg }}</span>
+          </div>
+        </form>
+      </div>
+
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:clamp(56px,8vw,110px);padding-top:30px;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap;">
+        <div style="font-weight:800;font-size:48px;letter-spacing:0.04em;line-height:1;">UFX</div>
+        <div style="display:flex;gap:44px;flex-wrap:wrap;">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.6);margin-bottom:4px;">EXPLORE</span>
+            <a href="#featured" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Featured</a>
+            <a href="#services" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Services</a>
+            <a href="#edge" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">About Us</a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.6);margin-bottom:4px;">CONNECT</span>
+            <a href="https://linkedin.com/company/upworldfx" target="_blank" rel="noopener" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">LinkedIn</a>
+            <a href="mailto:info@upworldfx.com" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Email</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:30px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.08em;color:rgba(242,242,244,.55);">© 2026 UFX — Real Worlds. Digital Possibilities.</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroAlign&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;left&quot;,&quot;center&quot;],&quot;default&quot;:&quot;left&quot;,&quot;tsType&quot;:&quot;\&quot;left\&quot;|\&quot;center\&quot;&quot;},&quot;scrubLength&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:1,&quot;min&quot;:1.4,&quot;max&quot;:4,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E8E8EC&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { twinHover: -1, svcHover: -1, fName: '', fEmail: '', fCompany: '', fMessage: '', sent: false };
+  componentDidMount() {
+    this._raf = 0;
+    this._cur = 0;     // smoothed video time
+    this._target = 0;  // scroll-driven target time
+    this._dur = 0;
+    this._running = false;
+
+    // loop the VFX clip back to its usable start (63s) instead of the white 0s frame
+    const wireSvcLoop = () => {
+      const vfx = document.getElementById('svc-vid-3');
+      if (!vfx) { requestAnimationFrame(wireSvcLoop); return; }
+      const START = 65;
+      vfx.addEventListener('timeupdate', () => {
+        if (!vfx.paused && vfx.currentTime < START - 0.1) {
+          try { vfx.currentTime = START; } catch (e) {}
+        }
+      });
+      vfx.addEventListener('loadedmetadata', () => {
+        if (vfx.duration && vfx.duration <= START) { /* clip shorter than offset — leave as-is */ }
+        else { try { vfx.currentTime = START; } catch (e) {} }
+      });
+      if (vfx.readyState >= 1) { try { vfx.currentTime = START; } catch (e) {} }
+    };
+    requestAnimationFrame(wireSvcLoop);
+
+    // ---- Hero scroll-scrub: a single always-on rAF loop (no scroll listener) ----
+    // Reading scroll position every frame is bulletproof — it cannot be orphaned
+    // by re-renders/hot-reload the way an addEventListener closure can.
+    this._dur = this._dur || 0;
+    this._cur = this._cur || 0;
+    this._target = this._target || 0;
+
+    const loadBlob = () => {
+      const v = document.getElementById('ufx-hero-video');
+      if (!v) { requestAnimationFrame(loadBlob); return; }
+      if (this._blobTried) return;
+      this._blobTried = true;
+      v.pause(); v.muted = true; v.playsInline = true;
+      // Preview server may not honor range requests -> video unseekable ->
+      // currentTime scrubbing fails. Load whole clip as in-memory blob URL.
+      fetch('hero.mp4').then(r => r.blob()).then(b => {
+        const url = URL.createObjectURL(b);
+        v.src = url;
+        v.load();
+        v.addEventListener('loadedmetadata', () => { this._dur = v.duration || 0; }, { once: true });
+      }).catch(() => {
+        if (v.duration) this._dur = v.duration;
+      });
+    };
+    loadBlob();
+
+    const scrubFrame = () => {
+      this._raf = requestAnimationFrame(scrubFrame);
+      const v = document.getElementById('ufx-hero-video');
+      const sec = document.getElementById('ufx-hero-scroll');
+      if (!v || !sec) return;
+      if (!this._dur && v.duration) this._dur = v.duration;
+
+      const rect = sec.getBoundingClientRect();
+      const scrollable = sec.offsetHeight - window.innerHeight;
+      let p = scrollable > 0 ? (-rect.top) / scrollable : 0;
+      p = Math.max(0, Math.min(1, p));
+
+      // headline: hold through most of the scrub, fade only in the final stretch
+      const content = document.getElementById('ufx-hero-content');
+      if (content) {
+        const fadeStart = 0.78, fadeEnd = 0.99;
+        let fade = 1 - (p - fadeStart) / (fadeEnd - fadeStart);
+        fade = Math.max(0, Math.min(1, fade));
+        content.style.opacity = fade.toFixed(3);
+        const pp = Math.max(0, (p - fadeStart) / (1 - fadeStart));
+        content.style.transform = 'translate3d(0,' + (pp * -48).toFixed(1) + 'px,0) scale(' + (1 - pp * 0.03).toFixed(3) + ')';
+      }
+      const cue = document.getElementById('ufx-hero-cue');
+      if (cue) cue.style.opacity = Math.max(0, 1 - p * 6).toFixed(3);
+      const bar = document.getElementById('ufx-hero-bar');
+      if (bar) bar.style.width = (p * 100).toFixed(2) + '%';
+
+      // lerp the playhead toward the scroll-driven target
+      this._target = p * (this._dur || 0);
+      const diff = this._target - this._cur;
+      if (Math.abs(diff) > 0.0008) this._cur += diff * 0.16;
+      else this._cur = this._target;
+      if (this._dur && !v.seeking) {
+        let t = Math.max(0, Math.min(this._dur - 0.05, this._cur));
+        try { v.currentTime = t; } catch (e) {}
+      }
+    };
+    if (this._raf) cancelAnimationFrame(this._raf);
+    this._raf = requestAnimationFrame(scrubFrame);
+  }
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+  }
+  renderVals() {
+    const accent = this.props.accentColor ?? '#E8E8EC';
+    const align = this.props.heroAlign ?? 'left';
+    const len = this.props.scrubLength ?? 1.9;
+    const hv = this.state.twinHover;
+    // flex-grow weights (basis:0): idle all equal; hovered widens to ~image aspect
+    // (row is 1.95:1, images 1.5:1) so cover shows the whole image, no crop/letterbox.
+    // Cover stays height-driven throughout, so the scale is constant — the panel just
+    // sweeps the image open left→right instead of scaling from center.
+    const grow = (i) => hv === -1 ? 1 : (hv === i ? 13 : 1);
+    const fit = (i) => 'cover';
+    const objPos = (i) => 'left center';
+    const setHov = (i) => () => this.setState({ twinHover: i });
+
+    // --- service cards: hover to autoplay video + slight enlarge ---
+    const sh = this.state.svcHover;
+    const svcScale = (i) => sh === i ? 'scale(1.04)' : 'scale(1)';
+    const svcBorder = (i) => sh === i ? accent : 'rgba(255,255,255,.12)';
+    const svcVeil = (i) => sh === i ? '0' : '1';
+    // per-card start offset (seconds) — clip beginnings that are unusable
+    const svcStart = { 3: 65 };
+    const svcEnter = (i) => () => {
+      this.setState({ svcHover: i });
+      const v = document.getElementById('svc-vid-' + i);
+      if (v) {
+        v.muted = true;
+        const s = svcStart[i] || 0;
+        if (s && v.currentTime < s) { try { v.currentTime = s; } catch (e) {} }
+        const p = v.play(); if (p && p.catch) p.catch(() => {});
+      }
+    };
+    const svcLeave = (i) => () => {
+      this.setState({ svcHover: -1 });
+      const v = document.getElementById('svc-vid-' + i);
+      if (v) { v.pause(); try { v.currentTime = svcStart[i] || 0; } catch (e) {} }
+    };
+
+    return {
+      accent,
+      heroItems: align === 'center' ? 'center' : 'flex-start',
+      heroText: align === 'center' ? 'center' : 'left',
+      scrubHeight: (Math.max(1.5, Math.min(5, len)) * 100) + 'vh',
+      hov0: setHov(0), hov1: setHov(1), hov2: setHov(2), hov3: setHov(3), hov4: setHov(4),
+      hovOff: setHov(-1),
+      b0: grow(0), b1: grow(1), b2: grow(2), b3: grow(3), b4: grow(4),
+      f0: fit(0), f1: fit(1), f2: fit(2), f3: fit(3), f4: fit(4),
+      p0: objPos(0), p1: objPos(1), p2: objPos(2), p3: objPos(3), p4: objPos(4),
+      svcEnter0: svcEnter(0), svcEnter1: svcEnter(1), svcEnter2: svcEnter(2), svcEnter3: svcEnter(3),
+      svcLeave0: svcLeave(0), svcLeave1: svcLeave(1), svcLeave2: svcLeave(2), svcLeave3: svcLeave(3),
+      svcScale0: svcScale(0), svcScale1: svcScale(1), svcScale2: svcScale(2), svcScale3: svcScale(3),
+      svcBorder0: svcBorder(0), svcBorder1: svcBorder(1), svcBorder2: svcBorder(2), svcBorder3: svcBorder(3),
+      svcVeil0: svcVeil(0), svcVeil1: svcVeil(1), svcVeil2: svcVeil(2), svcVeil3: svcVeil(3),
+
+      // --- contact form ---
+      fName: this.state.fName, fEmail: this.state.fEmail, fCompany: this.state.fCompany, fMessage: this.state.fMessage,
+      setName: (e) => this.setState({ fName: e.target.value, sent: false }),
+      setEmail: (e) => this.setState({ fEmail: e.target.value, sent: false }),
+      setCompany: (e) => this.setState({ fCompany: e.target.value }),
+      setMessage: (e) => this.setState({ fMessage: e.target.value, sent: false }),
+      onSubmit: (e) => {
+        e.preventDefault();
+        const s = this.state;
+        const subject = encodeURIComponent('New enquiry from ' + (s.fName || 'the UFX website'));
+        const body = encodeURIComponent(
+          'Name: ' + s.fName + '\n' +
+          'Email: ' + s.fEmail + '\n' +
+          'Company: ' + (s.fCompany || '—') + '\n\n' +
+          s.fMessage
+        );
+        window.location.href = 'mailto:info@upworldfx.com?subject=' + subject + '&body=' + body;
+        this.setState({ sent: true });
+      },
+      sentMsg: this.state.sent ? 'Thanks — your message is ready to send in your email client.' : '',
+      sentOpacity: this.state.sent ? 1 : 0,
+    };
+  }
+}
+</script>
+</body>
+</html>
