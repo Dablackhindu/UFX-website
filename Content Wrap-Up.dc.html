@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<title>UFX — The Content Wrap-Up</title>
+<style>
+  html,body{margin:0;background:#0a0a0c;}
+  *{box-sizing:border-box;}
+  ::selection{background:rgba(255,255,255,.16);}
+  @media (max-width:640px){
+    #cw-hero h1{font-size:clamp(40px,13vw,64px) !important;}
+  }
+</style>
+</helmet>
+
+<div style="background:#0a0a0c;color:#f2f2f4;font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip;">
+
+  <!-- ============ NAV ============ -->
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(24px,4vw,56px);background:rgba(10,10,12,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);">
+    <a href="index.html" style="font-weight:800;font-size:21px;letter-spacing:0.06em;color:#f2f2f4;text-decoration:none;">UFX</a>
+    <nav style="display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:clamp(16px,3vw,34px);">
+      <a href="index.html#services" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">SERVICES</a>
+      <a href="index.html#featured" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">FEATURED</a>
+      <a href="index.html#edge" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">ABOUT US</a>
+      <a href="index.html#contact" style="margin-left:6px;white-space:nowrap;background:transparent;color:#f2f2f4;padding:10px 18px;border-radius:100px;font:600 12px/1 'Archivo';letter-spacing:0.04em;border:1px solid rgba(255,255,255,.28);text-decoration:none;transition:.25s;" style-hover="background:rgba(255,255,255,.08);border-color:#f2f2f4;">Let's Talk</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="cw-hero" style="padding:clamp(48px,7vw,96px) clamp(24px,4vw,56px) clamp(32px,4vw,52px);">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:clamp(28px,4vw,44px);font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;">
+        <a href="index.html#edge" style="color:rgba(242,242,244,.5);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">THE UFX EDGE</a>
+        <span style="color:rgba(242,242,244,.3);">/</span>
+        <span style="color:{{ accent }};">THE CONTENT WRAP-UP</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(28px,4vw,64px);align-items:end;">
+        <h1 style="margin:0;font-weight:800;font-size:clamp(42px,7vw,92px);line-height:0.94;letter-spacing:-0.03em;">THE CONTENT<br>WRAP-UP</h1>
+        <p style="margin:0;font-size:clamp(17px,1.6vw,23px);line-height:1.42;letter-spacing:-0.01em;color:rgba(242,242,244,.82);max-width:46ch;">Every build ships with a social-ready edit — engineered to showcase the work and earn reach far beyond the brief.</p>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:clamp(28px,4vw,40px);">
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.66);border:1px solid rgba(255,255,255,.14);padding:8px 13px;border-radius:100px;">SOCIAL EDIT</span>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.66);border:1px solid rgba(255,255,255,.14);padding:8px 13px;border-radius:100px;">EARNED MEDIA</span>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.66);border:1px solid rgba(255,255,255,.14);padding:8px 13px;border-radius:100px;">CASEPAK</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO ============ -->
+  <section style="padding:0 clamp(24px,4vw,56px) clamp(48px,6vw,88px);">
+    <div style="max-width:1320px;margin:0 auto;position:relative;aspect-ratio:16/9;background:#111114;border:1px solid rgba(255,255,255,.1);overflow:hidden;">
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ videoId }}?rel=0&amp;modestbranding=1" title="UFX — The Content Wrap-Up" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+    </div>
+    <div style="max-width:1320px;margin:16px auto 0;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;color:rgba(242,242,244,.55);">CASEPAK WRAP-UP — PICKED UP BY RECYCLE NOW</div>
+  </section>
+
+  <!-- ============ CONTEXT ============ -->
+  <section style="padding:clamp(56px,7vw,104px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);background:#0c0c0e;">
+    <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(36px,5vw,72px);align-items:start;">
+      <div>
+        <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:18px;">WHY IT MATTERS</div>
+        <h2 style="margin:0;font-weight:800;font-size:clamp(26px,3vw,44px);line-height:1.05;letter-spacing:-0.02em;max-width:15ch;">The deliverable that keeps working after handover.</h2>
+      </div>
+      <div>
+        <p style="margin:0;font-size:clamp(16px,1.4vw,20px);line-height:1.62;color:rgba(242,242,244,.8);">Every UFX project delivers twice. First, a precision real-time asset your team can actually use. Second, a content wrap-up: a short, social-ready edit that tells the story of the build and its transferable application — engineered to earn organic reach and earned-media pickup.</p>
+        <p style="margin:26px 0 0;font-size:clamp(15px,1.3vw,18px);line-height:1.62;color:rgba(242,242,244,.6);">Our Casepak wrap-up was picked up by <strong style="color:#f2f2f4;font-weight:700;">Recycle Now</strong>, putting the project in front of an audience far beyond the original brief — turning a single build into ongoing visibility for the client.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section style="padding:clamp(64px,8vw,120px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:22px;">START A CONVERSATION</div>
+      <h2 style="margin:0;font-weight:800;font-size:clamp(30px,4.4vw,60px);line-height:0.98;letter-spacing:-0.03em;max-width:15ch;">Want your build to travel this far?</h2>
+      <div style="display:flex;gap:14px;align-items:center;margin-top:36px;flex-wrap:wrap;">
+        <a href="index.html#contact" style="background:#f2f2f4;color:#0a0a0c;padding:15px 26px;border-radius:100px;font:600 14px/1 'Archivo';text-decoration:none;border:1px solid #f2f2f4;transition:.25s;cursor:pointer;" style-hover="background:transparent;color:#f2f2f4;">Contact Us</a>
+        <a href="mailto:info@upworldfx.com" style="font:500 14px/1 'IBM Plex Mono',monospace;color:rgba(242,242,244,.7);text-decoration:none;transition:.2s;cursor:pointer;" style-hover="color:#f2f2f4;">info@upworldfx.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="padding:clamp(48px,6vw,80px) clamp(24px,4vw,56px) 40px;border-top:1px solid rgba(255,255,255,.08);background:#0c0c0e;">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+        <div style="max-width:360px;">
+          <a href="index.html" style="font-weight:800;font-size:22px;letter-spacing:0.06em;color:#f2f2f4;text-decoration:none;">UFX</a>
+          <p style="margin:18px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,244,.55);">Real-time technology studio building digital twins, virtual production and VFX in Unreal Engine.</p>
+        </div>
+        <div style="display:flex;gap:44px;flex-wrap:wrap;">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.6);margin-bottom:4px;">EXPLORE</span>
+            <a href="index.html#featured" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Featured</a>
+            <a href="index.html#services" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Services</a>
+            <a href="index.html#edge" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">About Us</a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.6);margin-bottom:4px;">CONNECT</span>
+            <a href="https://linkedin.com/company/upworldfx" target="_blank" rel="noopener" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">LinkedIn</a>
+            <a href="mailto:info@upworldfx.com" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Email</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:30px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.08em;color:rgba(242,242,244,.55);">© 2026 UFX — Real Worlds. Digital Possibilities.</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E8E8EC&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;videoId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;yFkcXF6Zfds&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accentColor ?? '#E8E8EC',
+      videoId: this.props.videoId ?? 'yFkcXF6Zfds',
+    };
+  }
+}
+</script>
+</body>
+</html>

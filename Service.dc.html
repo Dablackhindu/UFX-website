@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;background:#0a0a0c;}
+  *{box-sizing:border-box;}
+  ::selection{background:rgba(255,255,255,.16);}
+  @media (max-width:640px){
+    #svc-hero h1{font-size:clamp(40px,13vw,64px) !important;}
+    #svc-hero-video{aspect-ratio:4/3 !important;}
+  }
+</style>
+</helmet>
+
+<div style="background:#0a0a0c;color:#f2f2f4;font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip;">
+
+  <!-- ============ NAV ============ -->
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(24px,4vw,56px);background:rgba(10,10,12,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);">
+    <a href="index.html" style="font-weight:800;font-size:21px;letter-spacing:0.06em;color:#f2f2f4;text-decoration:none;">UFX</a>
+    <nav style="display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:clamp(16px,3vw,34px);">
+      <a href="index.html#services" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:#f2f2f4;text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">SERVICES</a>
+      <a href="index.html#featured" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">FEATURED</a>
+      <a href="index.html#edge" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">ABOUT US</a>
+      <a href="index.html#contact" style="margin-left:6px;white-space:nowrap;background:transparent;color:#f2f2f4;padding:10px 18px;border-radius:100px;font:600 12px/1 'Archivo';letter-spacing:0.04em;border:1px solid rgba(255,255,255,.28);text-decoration:none;transition:.25s;" style-hover="background:rgba(255,255,255,.08);border-color:#f2f2f4;">Let's Talk</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="svc-hero" style="padding:clamp(48px,7vw,96px) clamp(24px,4vw,56px) clamp(32px,4vw,52px);">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:clamp(28px,4vw,44px);font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;">
+        <a href="index.html#services" style="color:rgba(242,242,244,.5);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">SERVICES</a>
+        <span style="color:rgba(242,242,244,.3);">/</span>
+        <span style="color:{{ accent }};">{{ num }}</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(28px,4vw,64px);align-items:end;">
+        <h1 style="margin:0;font-weight:800;font-size:clamp(42px,7vw,92px);line-height:0.94;letter-spacing:-0.03em;">{{ title }}</h1>
+        <p style="margin:0;font-size:clamp(17px,1.6vw,23px);line-height:1.42;letter-spacing:-0.01em;color:rgba(242,242,244,.82);max-width:46ch;">{{ tagline }}</p>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:clamp(28px,4vw,40px);">
+        <sc-for list="{{ tags }}" as="tag" hint-placeholder-count="3">
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.66);border:1px solid rgba(255,255,255,.14);padding:8px 13px;border-radius:100px;">{{ tag }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HERO VIDEO ============ -->
+  <section style="padding:0 clamp(24px,4vw,56px) clamp(48px,6vw,88px);">
+    <div style="max-width:1320px;margin:0 auto;position:relative;background:radial-gradient(120% 120% at 50% 30%, #16161a 0%, #0a0a0c 72%);border:1px solid rgba(255,255,255,.08);overflow:hidden;">
+      <video id="svc-hero-video" src="{{ videoSrc }}" muted loop autoplay playsinline preload="auto" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:{{ videoPos }};transform:{{ videoTransform }};transform-origin:center;"></video>
+      <div style="position:absolute;left:0;bottom:0;padding:clamp(20px,2.5vw,32px);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;color:rgba(242,242,244,.72);background:linear-gradient(to top, rgba(8,8,10,.7), transparent);width:100%;pointer-events:none;">{{ videoCaption }}</div>
+    </div>
+  </section>
+
+  <!-- ============ OVERVIEW ============ -->
+  <section style="padding:clamp(56px,7vw,104px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);background:#0c0c0e;">
+    <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(36px,5vw,72px);align-items:start;">
+      <div>
+        <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:18px;">OVERVIEW</div>
+        <h2 style="margin:0;font-weight:800;font-size:clamp(26px,3vw,44px);line-height:1.05;letter-spacing:-0.02em;max-width:16ch;">{{ heading }}</h2>
+      </div>
+      <div>
+        <p style="margin:0;font-size:clamp(16px,1.4vw,20px);line-height:1.62;color:rgba(242,242,244,.8);">{{ overview }}</p>
+        <p style="margin:26px 0 0;font-size:clamp(15px,1.3vw,18px);line-height:1.62;color:rgba(242,242,244,.6);">{{ overview2 }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT WE DELIVER ============ -->
+  <section style="padding:clamp(56px,7vw,104px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:clamp(28px,4vw,44px);">WHAT WE DELIVER</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);">
+        <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="4">
+          <div style="background:#0a0a0c;padding:clamp(26px,3vw,38px) clamp(22px,2.4vw,30px);display:flex;flex-direction:column;min-height:190px;">
+            <span style="font:500 12px/1 'IBM Plex Mono',monospace;color:{{ accent }};margin-bottom:auto;">{{ cap.n }}</span>
+            <h3 style="margin:30px 0 12px;font-weight:700;font-size:clamp(18px,1.6vw,22px);letter-spacing:-0.01em;">{{ cap.name }}</h3>
+            <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(242,242,244,.58);">{{ cap.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED PROJECT (digital-twins only) ============ -->
+  <sc-if value="{{ hasFeatured }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:clamp(56px,7vw,104px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);background:#0a0a0c;">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,4vw,56px);align-items:end;margin-bottom:clamp(32px,4vw,52px);">
+        <div>
+          <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.55);margin-bottom:18px;">FEATURED PROJECT</div>
+          <h2 style="margin:0;font-weight:800;font-size:clamp(28px,3.4vw,50px);line-height:1.02;letter-spacing:-0.025em;max-width:14ch;">{{ feat.title }}</h2>
+          <p style="margin:20px 0 0;font-size:clamp(15px,1.3vw,18px);line-height:1.6;color:rgba(242,242,244,.7);max-width:50ch;">{{ feat.blurb }}</p>
+        </div>
+        <div style="display:flex;gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);">
+          <sc-for list="{{ feat.stats }}" as="st" hint-placeholder-count="3">
+            <div style="flex:1;background:#0a0a0c;padding:20px 22px;">
+              <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;color:rgba(242,242,244,.5);margin-bottom:10px;">{{ st.k }}</div>
+              <div style="font-weight:700;font-size:clamp(18px,1.8vw,24px);letter-spacing:-0.01em;">{{ st.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(12px,1.5vw,18px);">
+        <sc-for list="{{ feat.clips }}" as="clip" hint-placeholder-count="3">
+          <div onMouseEnter="{{ cardEnter }}" onMouseLeave="{{ cardLeave }}" style="border:1px solid rgba(255,255,255,.1);background:#0a0a0c;overflow:hidden;">
+            <div style="position:relative;aspect-ratio:16/9;background:#111114;overflow:hidden;">
+              <video class="svc-featured-vid" src="{{ clip.src }}" muted loop autoplay playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+              <sc-if value="{{ clip.cloud }}" hint-placeholder-val="{{ false }}">
+                <video class="svc-cloud-vid" src="{{ clip.cloud }}" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s ease;pointer-events:none;"></video>
+                <span style="position:absolute;left:12px;top:12px;font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:{{ accent }};border:1px solid rgba(255,255,255,.2);background:rgba(8,8,10,.55);padding:5px 8px;border-radius:100px;backdrop-filter:blur(4px);pointer-events:none;">HOVER → POINT CLOUD</span>
+              </sc-if>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;">
+              <span style="font-weight:700;font-size:15px;letter-spacing:-0.01em;">{{ clip.name }}</span>
+              <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.5);">{{ clip.tag }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ APPLICATIONS ============ -->
+  <section style="padding:clamp(56px,7vw,104px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);background:#0c0c0e;">
+    <div style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(36px,5vw,72px);align-items:start;">
+      <div>
+        <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:18px;">WHERE IT'S USED</div>
+        <h2 style="margin:0;font-weight:800;font-size:clamp(26px,3vw,44px);line-height:1.05;letter-spacing:-0.02em;max-width:14ch;">{{ appsHeading }}</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;">
+        <sc-for list="{{ applications }}" as="app" hint-placeholder-count="4">
+          <div style="display:flex;align-items:baseline;gap:18px;padding:20px 0;border-top:1px solid rgba(255,255,255,.14);">
+            <span style="font:500 11px/1 'IBM Plex Mono',monospace;color:{{ accent }};flex:none;">{{ app.n }}</span>
+            <div>
+              <div style="font-weight:700;font-size:clamp(17px,1.5vw,21px);letter-spacing:-0.01em;">{{ app.name }}</div>
+              <p style="margin:7px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,244,.58);max-width:52ch;">{{ app.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEXT SERVICE + CTA ============ -->
+  <section style="padding:clamp(64px,8vw,120px) clamp(24px,4vw,56px);border-top:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(28px,4vw,56px);align-items:end;">
+        <div>
+          <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:22px;">START A CONVERSATION</div>
+          <h2 style="margin:0;font-weight:800;font-size:clamp(30px,4.4vw,60px);line-height:0.98;letter-spacing:-0.03em;max-width:15ch;">{{ ctaHeading }}</h2>
+          <div style="display:flex;gap:14px;align-items:center;margin-top:36px;flex-wrap:wrap;">
+            <a href="index.html#contact" style="background:#f2f2f4;color:#0a0a0c;padding:15px 26px;border-radius:100px;font:600 14px/1 'Archivo';text-decoration:none;border:1px solid #f2f2f4;transition:.25s;" style-hover="background:transparent;color:#f2f2f4;">Contact Us</a>
+            <a href="mailto:info@upworldfx.com" style="font:500 14px/1 'IBM Plex Mono',monospace;color:rgba(242,242,244,.7);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">info@upworldfx.com</a>
+          </div>
+        </div>
+
+        <a href="{{ nextHref }}" style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:clamp(26px,3vw,36px);border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.015);text-decoration:none;color:inherit;transition:.25s;" style-hover="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.28);">
+          <div>
+            <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.5);margin-bottom:12px;">NEXT SERVICE</div>
+            <div style="font-weight:700;font-size:clamp(22px,2.4vw,32px);letter-spacing:-0.02em;">{{ nextName }}</div>
+          </div>
+          <span style="font-size:26px;color:{{ accent }};flex:none;">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="padding:clamp(48px,6vw,80px) clamp(24px,4vw,56px) 40px;border-top:1px solid rgba(255,255,255,.08);background:#0c0c0e;">
+    <div style="max-width:1320px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+        <div style="max-width:360px;">
+          <a href="index.html" style="font-weight:800;font-size:22px;letter-spacing:0.06em;color:#f2f2f4;text-decoration:none;">UFX</a>
+          <p style="margin:18px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,244,.55);">Real-time technology studio building digital twins, virtual production and VFX in Unreal Engine.</p>
+        </div>
+        <div style="display:flex;gap:44px;flex-wrap:wrap;">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.6);margin-bottom:4px;">EXPLORE</span>
+            <a href="index.html#featured" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Featured</a>
+            <a href="index.html#services" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Services</a>
+            <a href="index.html#edge" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">About Us</a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.6);margin-bottom:4px;">CONNECT</span>
+            <a href="https://linkedin.com/company/upworldfx" target="_blank" rel="noopener" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">LinkedIn</a>
+            <a href="mailto:info@upworldfx.com" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Email</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:30px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.08em;color:rgba(242,242,244,.55);">© 2026 UFX — Real Worlds. Digital Possibilities.</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E8E8EC&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    // honor OS "reduce motion": freeze the autoplaying videos on a still frame
+    let reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    this._reduce = reduce;
+    const hero = document.getElementById('svc-hero-video');
+    const clips = [].slice.call(document.querySelectorAll('.svc-featured-vid'));
+    const all = hero ? [hero].concat(clips) : clips;
+    all.forEach((v) => {
+      try {
+        if (reduce) { v.loop = false; v.autoplay = false; v.pause(); return; }
+        v.muted = true; v.loop = true;               // enforce as DOM properties
+        const p = v.play(); if (p && p.catch) p.catch(() => {});
+      } catch (e) {}
+    });
+  }
+  renderVals() {
+    const accent = this.props.accentColor ?? '#E8E8EC';
+
+    const DATA = {
+      'digital-twins': {
+        num: '01 / DIGITAL TWINS',
+        title: 'Digital Twins',
+        tagline: 'Living, real-time replicas of real-world sites, environments and assets — captured to sub-millimetre precision and rebuilt in Unreal Engine.',
+        tags: ['Reality Capture', 'Gaussian Splatting', 'Unreal Engine', '3DGS'],
+        video: 'twin-flythrough.mp4', videoPos: 'center', videoTransform: 'none',
+        videoCaption: 'REAL-TIME DIGITAL TWIN — UNREAL ENGINE FLY-THROUGH',
+        heading: 'A dataset becomes a living environment.',
+        overview: 'A UFX digital twin is a fully navigable, real-time replica of a physical site, environment or asset. We capture reality using drone photogrammetry, LiDAR and Gaussian Splatting, then reconstruct it inside Unreal Engine as a living environment your team can walk through, interrogate and build on.',
+        overview2: 'Unlike a static scan or a raw point cloud, a UFX twin runs at 60+ FPS with live data layered on top — equipment specs, maintenance schedules, sensor feeds — turning spatial data into an operational tool for training, planning and sales.',
+        capabilities: [
+          { name: 'Reality Capture', desc: 'Drone photogrammetry and LiDAR capture of sites at engineering-grade accuracy.' },
+          { name: 'Splat Reconstruction', desc: 'Gaussian Splatting turns hundreds of thousands of images into a coherent 3D scene.' },
+          { name: 'Unreal Deployment', desc: 'Optimised NVOL assets deployed natively for real-time navigation at 4K.' },
+          { name: 'Live Data Overlays', desc: 'Specs, schedules and sensor data bound to objects inside the twin.' },
+        ],
+        appsHeading: 'Built for teams who work in the real world.',
+        applications: [
+          { name: 'Industrial & Facilities', desc: 'Training, maintenance planning and operational insight for complex sites.' },
+          { name: 'Real Estate & Architecture', desc: 'Navigable, photoreal replicas for sales, planning and stakeholder buy-in.' },
+          { name: 'Heritage & Culture', desc: 'Preserving and presenting sites as interactive, explorable experiences.' },
+          { name: 'Simulation & Training', desc: 'Safe, repeatable environments for onboarding and scenario rehearsal.' },
+        ],
+        ctaHeading: 'Have a site worth rebuilding?',
+        next: 'virtual-production',
+        featured: {
+          title: 'Kings Cross Residence',
+          blurb: 'A £2.5M luxury home in Kings Cross, captured and rebuilt as a fully navigable real-time twin — every floor explorable in Unreal Engine, from the basement kitchen to the upper levels.',
+          stats: [
+            { k: 'LOCATION', v: 'Kings Cross' },
+            { k: 'VALUE', v: '£2.5M' },
+            { k: 'CAPTURE', v: 'Full home' },
+          ],
+          clips: [
+            { src: 'kingsx-ground.mp4', name: 'Ground Floor', tag: 'RENDER / POINT CLOUD', cloud: 'kingsx-ground-pointcloud.mp4' },
+            { src: 'kingsx-2nd.mp4', name: 'Second Floor', tag: 'RENDER / POINT CLOUD', cloud: 'kingsx-2nd-pointcloud.mp4' },
+            { src: 'kingsx-basement-kitchen.mp4', name: 'Basement Kitchen', tag: 'RENDER / POINT CLOUD', cloud: 'kingsx-basement-kitchen-pointcloud.mp4' },
+          ],
+        },
+      },
+      'virtual-production': {
+        num: '02 / VIRTUAL PRODUCTION',
+        title: 'Virtual Production',
+        tagline: 'Real-time LED-volume and broadcast environments that place your talent inside any world — live, in-camera.',
+        tags: ['LED Volume', 'ICVFX', 'Camera Tracking', 'Unreal Engine'],
+        video: 'mocap-clip.mp4', videoPos: 'center', videoTransform: 'none',
+        videoCaption: 'REAL-TIME VIRTUAL PRODUCTION ENVIRONMENT',
+        heading: 'See the final shot on set.',
+        overview: 'Virtual production replaces green screen and distant location shoots with photoreal, real-time environments rendered live on LED volumes. We build and operate the Unreal Engine worlds, camera tracking and in-camera VFX that let directors and DPs frame the final image while the camera rolls.',
+        overview2: 'The result is faster shoots, complete creative control over light and location, and final-pixel imagery captured in-camera — no waiting on post to see the world your story lives in.',
+        capabilities: [
+          { name: 'LED-Volume Worlds', desc: 'Photoreal Unreal environments rendered live to the wall behind your talent.' },
+          { name: 'Camera Tracking', desc: 'Real-time tracking that ties virtual parallax to the physical camera.' },
+          { name: 'In-Camera VFX', desc: 'Final-pixel effects and set extensions captured in the lens, not in post.' },
+          { name: 'Virtual Scouting', desc: 'Walk and light the set in VR before a single crew member is called.' },
+        ],
+        appsHeading: 'From episodic to live broadcast.',
+        applications: [
+          { name: 'Film & Episodic', desc: 'Location-anywhere shooting with full control of time, weather and light.' },
+          { name: 'Commercials', desc: 'Multiple looks and worlds in a single stage day.' },
+          { name: 'Live Broadcast', desc: 'Dynamic real-time backdrops and augmented graphics for live shows.' },
+          { name: 'Corporate & Events', desc: 'Branded virtual stages for launches, keynotes and streamed events.' },
+        ],
+        ctaHeading: 'Planning a shoot?',
+        next: 'motion-capture',
+      },
+      'motion-capture': {
+        num: '03 / MOTION CAPTURE',
+        title: 'Motion Capture',
+        tagline: 'Performance and movement capture that gives digital characters weight, intention and life — in real time.',
+        tags: ['Full-Body', 'Facial', 'Real-Time Retarget', 'Unreal Engine'],
+        video: 'motioncapture-clip.mp4', videoPos: 'center', videoTransform: 'none',
+        videoCaption: 'PERFORMANCE CAPTURE — DRIVEN LIVE IN UNREAL',
+        heading: 'Performance, mapped to character.',
+        overview: 'We capture the nuance of human performance — body, face and hands — and map it onto digital characters live in Unreal Engine. From previs through to final animation, motion capture gives your characters the weight and intention that keyframing alone can\u2019t reach.',
+        overview2: 'Real-time retargeting means directors see the performance on the final character instantly, compressing the gap between capture and creative decision to almost nothing.',
+        capabilities: [
+          { name: 'Full-Body Capture', desc: 'Clean, believable body motion captured and cleaned for production.' },
+          { name: 'Face & Hands', desc: 'Facial and finger detail that carries emotion and precise gesture.' },
+          { name: 'Real-Time Retarget', desc: 'Live mapping of the performance onto your character in-engine.' },
+          { name: 'Character Pipeline', desc: 'Rig, retarget and integrate into your Unreal animation workflow.' },
+        ],
+        appsHeading: 'Characters that feel alive.',
+        applications: [
+          { name: 'Games & Interactive', desc: 'Believable in-engine performance for playable and cinematic moments.' },
+          { name: 'Film & Animation', desc: 'Performance-driven characters from previs to final frame.' },
+          { name: 'Virtual Humans', desc: 'Digital presenters and avatars driven by real performers.' },
+          { name: 'Training Content', desc: 'Human, relatable characters for learning and simulation.' },
+        ],
+        ctaHeading: 'Bringing a character to life?',
+        next: 'animation-vfx',
+      },
+      'animation-vfx': {
+        num: '04 / ANIMATION & VFX',
+        title: 'Animation & VFX',
+        tagline: 'Cinematic animation and visual effects, rendered in real time inside Unreal Engine.',
+        tags: ['Real-Time Cinematics', 'VFX', 'Look-Dev', 'Unreal Engine'],
+        video: 'vfx-clip.mp4#t=65', videoPos: '48% center', videoTransform: 'scale(1.5)',
+        videoCaption: 'REAL-TIME CINEMATIC & VISUAL EFFECTS',
+        heading: 'Cinema-grade frames, without the render wait.',
+        overview: 'We produce story-driven animation and visual effects that render in real time — cinematics, product films, explainers and immersive sequences built entirely in Unreal Engine.',
+        overview2: 'Real-time rendering collapses the traditional VFX timeline: iterate on lighting, camera and effects instantly, and deliver broadcast-quality frames without days of offline rendering between every creative decision.',
+        capabilities: [
+          { name: 'Real-Time Cinematics', desc: 'Sequenced, camera-driven storytelling rendered live in-engine.' },
+          { name: 'VFX & Simulation', desc: 'Effects, particles and simulation integrated into real-time scenes.' },
+          { name: 'Lighting & Look-Dev', desc: 'Cinematic lighting and grade dialled in interactively.' },
+          { name: 'Content Layer', desc: 'Social-ready cuts and formats delivered alongside the hero piece.' },
+        ],
+        appsHeading: 'Stories that travel.',
+        applications: [
+          { name: 'Brand & Marketing', desc: 'High-craft films that carry a brand across every channel.' },
+          { name: 'Product Launches', desc: 'Reveal films and explainers that make complex products clear.' },
+          { name: 'Social Content', desc: 'Cut-down, platform-native content from the same real-time source.' },
+          { name: 'Immersive Experiences', desc: 'Sequences for installations, events and interactive spaces.' },
+        ],
+        ctaHeading: 'Got a story to tell?',
+        next: 'digital-twins',
+      },
+    };
+
+    let slug = 'digital-twins';
+    try {
+      const p = new URLSearchParams(window.location.search).get('s');
+      if (p && DATA[p]) slug = p;
+    } catch (e) {}
+
+    const d = DATA[slug];
+    const nextD = DATA[d.next];
+    const nn = (i) => '0' + (i + 1);
+
+    return {
+      accent,
+      metaTitle: 'UFX — ' + d.title,
+      num: d.num,
+      title: d.title,
+      tagline: d.tagline,
+      tags: d.tags,
+      videoSrc: d.video,
+      videoPos: d.videoPos,
+      videoTransform: d.videoTransform,
+      videoCaption: d.videoCaption,
+      heading: d.heading,
+      overview: d.overview,
+      overview2: d.overview2,
+      capabilities: d.capabilities.map((c, i) => ({ n: nn(i), name: c.name, desc: c.desc })),
+      appsHeading: d.appsHeading,
+      applications: d.applications.map((a, i) => ({ n: nn(i), name: a.name, desc: a.desc })),
+      ctaHeading: d.ctaHeading,
+      hasFeatured: !!d.featured,
+      feat: d.featured || { title: '', blurb: '', stats: [], clips: [] },
+      // hover: reveal the matched-camera point-cloud pass over the render.
+      // point cloud & render can differ in length, so lock them by *progress*
+      // (and set playbackRate) rather than raw currentTime, so the camera stays
+      // matched through loops.
+      cardEnter: (e) => {
+        if (this._reduce) return;
+        const card = e.currentTarget;
+        const main = card.querySelector('.svc-featured-vid');
+        const cloud = card.querySelector('.svc-cloud-vid');
+        if (!main || !cloud) return;
+        const apply = () => {
+          try {
+            cloud.muted = true; cloud.loop = true;
+            const md = main.duration || 0, cd = cloud.duration || 0;
+            if (!md || !cd) { cloud.play(); cloud.style.opacity = '1'; return; }
+            cloud.playbackRate = cd / md;                    // keep loops in lockstep
+            main.pause();                                    // freeze render so the target can't drift
+            cloud.pause();                                   // seek only sticks while paused
+            const target = (main.currentTime / md) * cd;
+            cloud.currentTime = target;
+            // the 'seeked' event doesn't fire in this engine, so poll until the
+            // seek actually lands, then start BOTH together (perfectly matched)
+            let tries = 0;
+            const go = () => {
+              if (Math.abs(cloud.currentTime - target) < 0.12 || tries++ > 30) {
+                const p1 = cloud.play(); if (p1 && p1.catch) p1.catch(() => {});
+                const p2 = main.play(); if (p2 && p2.catch) p2.catch(() => {});
+                cloud.style.opacity = '1';
+              } else {
+                setTimeout(go, 20);
+              }
+            };
+            setTimeout(go, 20);
+          } catch (err) {}
+        };
+        if (cloud.readyState >= 1) apply();
+        else cloud.addEventListener('loadedmetadata', apply, { once: true });
+      },
+      cardLeave: (e) => {
+        const card = e.currentTarget;
+        const main = card.querySelector('.svc-featured-vid');
+        const cloud = card.querySelector('.svc-cloud-vid');
+        if (main) { try { const p = main.play(); if (p && p.catch) p.catch(() => {}); } catch (err) {} }
+        if (!cloud) return;
+        try {
+          cloud.style.opacity = '0';
+          setTimeout(() => { try { if (cloud.style.opacity === '0') cloud.pause(); } catch (err) {} }, 340);
+        } catch (err) {}
+      },
+      nextName: nextD.title,
+      nextHref: 'Service.dc.html?s=' + d.next,
+    };
+  }
+}
+</script>
+</body>
+</html>
