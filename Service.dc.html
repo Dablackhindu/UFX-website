@@ -119,7 +119,7 @@
         <sc-for list="{{ feat.clips }}" as="clip" hint-placeholder-count="3">
           <div onMouseEnter="{{ cardEnter }}" onMouseLeave="{{ cardLeave }}" style="border:1px solid rgba(255,255,255,.1);background:#0a0a0c;overflow:hidden;">
             <div style="position:relative;aspect-ratio:16/9;background:#111114;overflow:hidden;">
-              <video class="svc-featured-vid" src="{{ clip.src }}" muted loop autoplay playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+              <video class="svc-featured-vid" src="{{ clip.src }}" muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
               <sc-if value="{{ clip.cloud }}" hint-placeholder-val="{{ false }}">
                 <video class="svc-cloud-vid" src="{{ clip.cloud }}" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s ease;pointer-events:none;"></video>
                 <span style="position:absolute;left:12px;top:12px;font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:{{ accent }};border:1px solid rgba(255,255,255,.2);background:rgba(8,8,10,.55);padding:5px 8px;border-radius:100px;backdrop-filter:blur(4px);pointer-events:none;">HOVER → POINT CLOUD</span>
@@ -187,7 +187,7 @@
       <div style="display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;">
         <div style="max-width:360px;">
           <a href="index.html" style="font-weight:800;font-size:22px;letter-spacing:0.06em;color:#f2f2f4;text-decoration:none;">UFX</a>
-          <p style="margin:18px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,244,.55);">Real-time technology studio building digital twins, virtual production and VFX in Unreal Engine.</p>
+          <p style="margin:18px 0 0;font-size:14px;line-height:1.55;color:rgba(242,242,244,.55);">Real-time technology studio building digital twins, virtual production and VFX.</p>
         </div>
         <div style="display:flex;gap:44px;flex-wrap:wrap;">
           <div style="display:flex;flex-direction:column;gap:12px;">
@@ -216,16 +216,49 @@ class Component extends DCLogic {
     let reduce = false;
     try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
     this._reduce = reduce;
+
+    // derive a poster still from each clip's src (name.mp4 -> name.jpg) so a frame
+    // shows instantly and cards never sit blank while video buffers.
+    const posterFor = (v) => {
+      const s = v.getAttribute('src') || '';
+      const m = s.replace(/#.*$/, '');
+      if (/\.mp4$/i.test(m) && !v.getAttribute('poster')) v.setAttribute('poster', m.replace(/\.mp4$/i, '.jpg'));
+    };
+
     const hero = document.getElementById('svc-hero-video');
     const clips = [].slice.call(document.querySelectorAll('.svc-featured-vid'));
-    const all = hero ? [hero].concat(clips) : clips;
-    all.forEach((v) => {
+    const clouds = [].slice.call(document.querySelectorAll('.svc-cloud-vid'));
+    [hero].concat(clips, clouds).forEach((v) => { if (v) posterFor(v); });
+
+    // hero: single video at the top, plays straight away (unless reduce-motion)
+    if (hero) {
       try {
-        if (reduce) { v.loop = false; v.autoplay = false; v.pause(); return; }
-        v.muted = true; v.loop = true;               // enforce as DOM properties
-        const p = v.play(); if (p && p.catch) p.catch(() => {});
+        if (reduce) { hero.loop = false; hero.autoplay = false; hero.pause(); }
+        else { hero.muted = true; hero.loop = true; const p = hero.play(); if (p && p.catch) p.catch(() => {}); }
       } catch (e) {}
-    });
+    }
+
+    // featured-clip grid: lazy-load + play only while on screen, pause off-screen.
+    // Stops a phone trying to autoplay every King's Cross clip at once.
+    clips.forEach((v) => { v.preload = 'none'; });
+    if (!reduce && 'IntersectionObserver' in window && clips.length) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          const v = en.target;
+          if (en.isIntersecting) {
+            if (!v.dataset.loaded) { v.dataset.loaded = '1'; try { v.load(); } catch (e) {} }
+            v.muted = true; v.loop = true;
+            const p = v.play(); if (p && p.catch) p.catch(() => {});
+          } else {
+            try { v.pause(); } catch (e) {}
+          }
+        });
+      }, { threshold: 0.3 });
+      clips.forEach((v) => io.observe(v));
+      this._clipIO = io;
+    } else if (reduce) {
+      clips.forEach((v) => { try { v.loop = false; v.autoplay = false; v.pause(); } catch (e) {} });
+    }
   }
   renderVals() {
     const accent = this.props.accentColor ?? '#E8E8EC';
@@ -234,17 +267,17 @@ class Component extends DCLogic {
       'digital-twins': {
         num: '01 / DIGITAL TWINS',
         title: 'Digital Twins',
-        tagline: 'Living, real-time replicas of real-world sites, environments and assets — captured to sub-millimetre precision and rebuilt in Unreal Engine.',
-        tags: ['Reality Capture', 'Gaussian Splatting', 'Unreal Engine', '3DGS'],
+        tagline: 'Living, real-time replicas of real-world sites, environments and assets — captured to sub-millimetre precision and rebuilt in real time.',
+        tags: ['Reality Capture', 'Gaussian Splatting', '3DGS'],
         video: 'twin-flythrough.mp4', videoPos: 'center', videoTransform: 'none',
-        videoCaption: 'REAL-TIME DIGITAL TWIN — UNREAL ENGINE FLY-THROUGH',
+        videoCaption: 'REAL-TIME DIGITAL TWIN — FLY-THROUGH',
         heading: 'A dataset becomes a living environment.',
-        overview: 'A UFX digital twin is a fully navigable, real-time replica of a physical site, environment or asset. We capture reality using drone photogrammetry, LiDAR and Gaussian Splatting, then reconstruct it inside Unreal Engine as a living environment your team can walk through, interrogate and build on.',
+        overview: 'A UFX digital twin is a fully navigable, real-time replica of a physical site, environment or asset. We capture reality using drone photogrammetry, LiDAR and Gaussian Splatting, then reconstruct it as a living, real-time environment your team can walk through, interrogate and build on.',
         overview2: 'Unlike a static scan or a raw point cloud, a UFX twin runs at 60+ FPS with live data layered on top — equipment specs, maintenance schedules, sensor feeds — turning spatial data into an operational tool for training, planning and sales.',
         capabilities: [
           { name: 'Reality Capture', desc: 'Drone photogrammetry and LiDAR capture of sites at engineering-grade accuracy.' },
           { name: 'Splat Reconstruction', desc: 'Gaussian Splatting turns hundreds of thousands of images into a coherent 3D scene.' },
-          { name: 'Unreal Deployment', desc: 'Optimised NVOL assets deployed natively for real-time navigation at 4K.' },
+          { name: 'Real-Time Deployment', desc: 'Optimised NVOL assets deployed natively for real-time navigation at 4K.' },
           { name: 'Live Data Overlays', desc: 'Specs, schedules and sensor data bound to objects inside the twin.' },
         ],
         appsHeading: 'Built for teams who work in the real world.',
@@ -258,7 +291,7 @@ class Component extends DCLogic {
         next: 'virtual-production',
         featured: {
           title: 'Kings Cross Residence',
-          blurb: 'A £2.5M luxury home in Kings Cross, captured and rebuilt as a fully navigable real-time twin — every floor explorable in Unreal Engine, from the basement kitchen to the upper levels.',
+          blurb: 'A £2.5M luxury home in Kings Cross, captured and rebuilt as a fully navigable real-time twin — every floor explorable in real time, from the basement kitchen to the upper levels.',
           stats: [
             { k: 'LOCATION', v: 'Kings Cross' },
             { k: 'VALUE', v: '£2.5M' },
@@ -275,14 +308,14 @@ class Component extends DCLogic {
         num: '02 / VIRTUAL PRODUCTION',
         title: 'Virtual Production',
         tagline: 'Real-time LED-volume and broadcast environments that place your talent inside any world — live, in-camera.',
-        tags: ['LED Volume', 'ICVFX', 'Camera Tracking', 'Unreal Engine'],
+        tags: ['LED Volume', 'ICVFX', 'Camera Tracking'],
         video: 'mocap-clip.mp4', videoPos: 'center', videoTransform: 'none',
         videoCaption: 'REAL-TIME VIRTUAL PRODUCTION ENVIRONMENT',
         heading: 'See the final shot on set.',
-        overview: 'Virtual production replaces green screen and distant location shoots with photoreal, real-time environments rendered live on LED volumes. We build and operate the Unreal Engine worlds, camera tracking and in-camera VFX that let directors and DPs frame the final image while the camera rolls.',
+        overview: 'Virtual production replaces green screen and distant location shoots with photoreal, real-time environments rendered live on LED volumes. We build and operate the real-time worlds, camera tracking and in-camera VFX that let directors and DPs frame the final image while the camera rolls.',
         overview2: 'The result is faster shoots, complete creative control over light and location, and final-pixel imagery captured in-camera — no waiting on post to see the world your story lives in.',
         capabilities: [
-          { name: 'LED-Volume Worlds', desc: 'Photoreal Unreal environments rendered live to the wall behind your talent.' },
+          { name: 'LED-Volume Worlds', desc: 'Photoreal environments rendered live to the wall behind your talent.' },
           { name: 'Camera Tracking', desc: 'Real-time tracking that ties virtual parallax to the physical camera.' },
           { name: 'In-Camera VFX', desc: 'Final-pixel effects and set extensions captured in the lens, not in post.' },
           { name: 'Virtual Scouting', desc: 'Walk and light the set in VR before a single crew member is called.' },
@@ -301,21 +334,21 @@ class Component extends DCLogic {
         num: '03 / MOTION CAPTURE',
         title: 'Motion Capture',
         tagline: 'Performance and movement capture that gives digital characters weight, intention and life — in real time.',
-        tags: ['Full-Body', 'Facial', 'Real-Time Retarget', 'Unreal Engine'],
+        tags: ['Full-Body', 'Facial', 'Real-Time Retarget'],
         video: 'motioncapture-clip.mp4', videoPos: 'center', videoTransform: 'none',
-        videoCaption: 'PERFORMANCE CAPTURE — DRIVEN LIVE IN UNREAL',
+        videoCaption: 'PERFORMANCE CAPTURE — DRIVEN LIVE',
         heading: 'Performance, mapped to character.',
-        overview: 'We capture the nuance of human performance — body, face and hands — and map it onto digital characters live in Unreal Engine. From previs through to final animation, motion capture gives your characters the weight and intention that keyframing alone can\u2019t reach.',
+        overview: 'We capture the nuance of human performance — body, face and hands — and map it onto digital characters live, in real time. From previs through to final animation, motion capture gives your characters the weight and intention that keyframing alone can\u2019t reach.',
         overview2: 'Real-time retargeting means directors see the performance on the final character instantly, compressing the gap between capture and creative decision to almost nothing.',
         capabilities: [
           { name: 'Full-Body Capture', desc: 'Clean, believable body motion captured and cleaned for production.' },
           { name: 'Face & Hands', desc: 'Facial and finger detail that carries emotion and precise gesture.' },
-          { name: 'Real-Time Retarget', desc: 'Live mapping of the performance onto your character in-engine.' },
-          { name: 'Character Pipeline', desc: 'Rig, retarget and integrate into your Unreal animation workflow.' },
+          { name: 'Real-Time Retarget', desc: 'Live mapping of the performance onto your character in real time.' },
+          { name: 'Character Pipeline', desc: 'Rig, retarget and integrate into your real-time animation workflow.' },
         ],
         appsHeading: 'Characters that feel alive.',
         applications: [
-          { name: 'Games & Interactive', desc: 'Believable in-engine performance for playable and cinematic moments.' },
+          { name: 'Games & Interactive', desc: 'Believable real-time performance for playable and cinematic moments.' },
           { name: 'Film & Animation', desc: 'Performance-driven characters from previs to final frame.' },
           { name: 'Virtual Humans', desc: 'Digital presenters and avatars driven by real performers.' },
           { name: 'Training Content', desc: 'Human, relatable characters for learning and simulation.' },
@@ -326,15 +359,15 @@ class Component extends DCLogic {
       'animation-vfx': {
         num: '04 / ANIMATION & VFX',
         title: 'Animation & VFX',
-        tagline: 'Cinematic animation and visual effects, rendered in real time inside Unreal Engine.',
-        tags: ['Real-Time Cinematics', 'VFX', 'Look-Dev', 'Unreal Engine'],
+        tagline: 'Cinematic animation and visual effects, rendered in real time.',
+        tags: ['Real-Time Cinematics', 'VFX', 'Look-Dev'],
         video: 'vfx-clip.mp4#t=65', videoPos: '48% center', videoTransform: 'scale(1.5)',
         videoCaption: 'REAL-TIME CINEMATIC & VISUAL EFFECTS',
         heading: 'Cinema-grade frames, without the render wait.',
-        overview: 'We produce story-driven animation and visual effects that render in real time — cinematics, product films, explainers and immersive sequences built entirely in Unreal Engine.',
+        overview: 'We produce story-driven animation and visual effects that render in real time — cinematics, product films, explainers and immersive sequences built entirely in real time.',
         overview2: 'Real-time rendering collapses the traditional VFX timeline: iterate on lighting, camera and effects instantly, and deliver broadcast-quality frames without days of offline rendering between every creative decision.',
         capabilities: [
-          { name: 'Real-Time Cinematics', desc: 'Sequenced, camera-driven storytelling rendered live in-engine.' },
+          { name: 'Real-Time Cinematics', desc: 'Sequenced, camera-driven storytelling rendered live in real time.' },
           { name: 'VFX & Simulation', desc: 'Effects, particles and simulation integrated into real-time scenes.' },
           { name: 'Lighting & Look-Dev', desc: 'Cinematic lighting and grade dialled in interactively.' },
           { name: 'Content Layer', desc: 'Social-ready cuts and formats delivered alongside the hero piece.' },
