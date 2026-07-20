@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -11,10 +12,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<title>UFX — Services | Digital Twins, Virtual Production, Motion Capture &amp; VFX</title>
+<meta name="description" content="UFX real-time services: digital twins, virtual production, motion capture and animation &amp; VFX — real worlds captured and rebuilt in real time.">
+<!-- Per-service tab title is set from the ?s= slug in componentDidMount below. -->
+<link rel="canonical" href="https://ufx.agency/Service.dc.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UFX">
+<meta property="og:title" content="UFX — Services">
+<meta property="og:description" content="Digital twins, virtual production, motion capture and animation & VFX — real worlds captured and rebuilt in real time.">
+<meta property="og:url" content="https://ufx.agency/Service.dc.html">
+<meta property="og:image" content="https://ufx.agency/twin-flythrough.jpg">
+<meta property="og:image:alt" content="Real-time digital twin fly-through — a UFX build">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UFX — Services">
+<meta name="twitter:description" content="Digital twins, virtual production, motion capture and animation & VFX — real worlds captured and rebuilt in real time.">
+<meta name="twitter:image" content="https://ufx.agency/twin-flythrough.jpg">
 <style>
   html,body{margin:0;background:#0a0a0c;}
   *{box-sizing:border-box;}
   ::selection{background:rgba(255,255,255,.16);}
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #E8E8EC;outline-offset:3px;border-radius:3px;}
   @media (max-width:640px){
     #svc-hero h1{font-size:clamp(40px,13vw,64px) !important;}
     #svc-hero-video{aspect-ratio:4/3 !important;}
@@ -30,7 +47,7 @@
     <nav style="display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:clamp(16px,3vw,34px);">
       <a href="index.html#services" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:#f2f2f4;text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">SERVICES</a>
       <a href="index.html#featured" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">FEATURED</a>
-      <a href="index.html#edge" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">ABOUT US</a>
+      <a href="About.dc.html" style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:rgba(242,242,244,.6);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">ABOUT US</a>
       <a href="index.html#contact" style="margin-left:6px;white-space:nowrap;background:transparent;color:#f2f2f4;padding:10px 18px;border-radius:100px;font:600 12px/1 'Archivo';letter-spacing:0.04em;border:1px solid rgba(255,255,255,.28);text-decoration:none;transition:.25s;" style-hover="background:rgba(255,255,255,.08);border-color:#f2f2f4;">Let's Talk</a>
     </nav>
   </header>
@@ -142,6 +159,17 @@
       <div>
         <div style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.2em;color:rgba(242,242,244,.5);margin-bottom:18px;">WHERE IT'S USED</div>
         <h2 style="margin:0;font-weight:800;font-size:clamp(26px,3vw,44px);line-height:1.05;letter-spacing:-0.02em;max-width:14ch;">{{ appsHeading }}</h2>
+        <sc-if value="{{ hasAppsVideo }}" hint-placeholder-val="{{ false }}">
+        <figure style="margin:clamp(30px,3.6vw,44px) 0 0;border:1px solid rgba(255,255,255,.1);background:#0a0a0c;overflow:hidden;max-width:560px;">
+          <div style="position:relative;aspect-ratio:16/9;background:#111114;overflow:hidden;">
+            <video class="svc-featured-vid" src="{{ appsVideo.src }}" muted loop playsinline preload="none" aria-label="{{ appsVideo.alt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+          </div>
+          <figcaption style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;">
+            <span style="font-weight:700;font-size:15px;letter-spacing:-0.01em;">{{ appsVideo.name }}</span>
+            <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;color:rgba(242,242,244,.5);">{{ appsVideo.tag }}</span>
+          </figcaption>
+        </figure>
+        </sc-if>
       </div>
       <div style="display:flex;flex-direction:column;">
         <sc-for list="{{ applications }}" as="app" hint-placeholder-count="4">
@@ -194,7 +222,7 @@
             <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.6);margin-bottom:4px;">EXPLORE</span>
             <a href="index.html#featured" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Featured</a>
             <a href="index.html#services" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">Services</a>
-            <a href="index.html#edge" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">About Us</a>
+            <a href="About.dc.html" style="font:500 13px/1 'Archivo';color:rgba(242,242,244,.72);text-decoration:none;transition:.2s;" style-hover="color:#f2f2f4;">About Us</a>
           </div>
           <div style="display:flex;flex-direction:column;gap:12px;">
             <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;color:rgba(242,242,244,.6);margin-bottom:4px;">CONNECT</span>
@@ -212,6 +240,18 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E8E8EC&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
   componentDidMount() {
+    // per-service tab title (the static <title> is the fallback for no/invalid ?s=)
+    try {
+      const TITLES = {
+        'digital-twins': 'Digital Twins',
+        'virtual-production': 'Virtual Production',
+        'motion-capture': 'Motion Capture',
+        'animation-vfx': 'Animation & VFX',
+      };
+      const s = new URLSearchParams(window.location.search).get('s');
+      if (s && TITLES[s]) document.title = 'UFX — ' + TITLES[s];
+    } catch (e) {}
+
     // honor OS "reduce motion": freeze the autoplaying videos on a still frame
     let reduce = false;
     try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
@@ -347,6 +387,13 @@ class Component extends DCLogic {
           { name: 'Character Pipeline', desc: 'Rig, retarget and integrate into your real-time animation workflow.' },
         ],
         appsHeading: 'Characters that feel alive.',
+        // stitched showreel: Kai_Sequence 4-17s + Turbo_Swerv 60-75s (720p30, no audio)
+        appsVideo: {
+          src: 'mocap-performance.mp4',
+          name: 'Performance → Character',
+          tag: 'CAPTURED & RETARGETED',
+          alt: 'Motion-captured performances driving digital characters in real time.',
+        },
         applications: [
           { name: 'Games & Interactive', desc: 'Believable real-time performance for playable and cinematic moments.' },
           { name: 'Film & Animation', desc: 'Performance-driven characters from previs to final frame.' },
@@ -410,6 +457,8 @@ class Component extends DCLogic {
       overview2: d.overview2,
       capabilities: d.capabilities.map((c, i) => ({ n: nn(i), name: c.name, desc: c.desc })),
       appsHeading: d.appsHeading,
+      hasAppsVideo: !!d.appsVideo,
+      appsVideo: d.appsVideo || { src: '', name: '', tag: '', alt: '' },
       applications: d.applications.map((a, i) => ({ n: nn(i), name: a.name, desc: a.desc })),
       ctaHeading: d.ctaHeading,
       hasFeatured: !!d.featured,

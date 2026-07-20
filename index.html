@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -13,11 +14,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <title>UFX — Real-Time Technology Studio | Digital Twins, Virtual Production &amp; VFX</title>
 <meta name="description" content="UFX is a real-time technology studio building digital twins, virtual production and VFX — real worlds rebuilt into interactive, immersive experiences.">
+<link rel="canonical" href="https://ufx.agency/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UFX">
+<meta property="og:title" content="UFX — Real-Time Technology Studio">
+<meta property="og:description" content="Digital twins, virtual production and VFX — real worlds rebuilt into interactive, immersive real-time experiences.">
+<meta property="og:url" content="https://ufx.agency/">
+<meta property="og:image" content="https://ufx.agency/featured.webp">
+<meta property="og:image:alt" content="Casepak digital twin — a real-time still from the UFX build">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UFX — Real-Time Technology Studio">
+<meta name="twitter:description" content="Digital twins, virtual production and VFX — real worlds rebuilt into interactive, immersive real-time experiences.">
+<meta name="twitter:image" content="https://ufx.agency/featured.webp">
 <style>
   html,body{margin:0;background:#0a0a0c;}
   *{box-sizing:border-box;}
   ::selection{background:rgba(255,255,255,.16);}
   html{scroll-padding-top:96px;}
+  /* keyboard focus: visible ring for tab users (mouse clicks unaffected) */
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #E8E8EC;outline-offset:3px;border-radius:3px;}
   /* ---- mobile: snap layout so nothing runs off screen ---- */
   @media (max-width:960px){
     #ufx-pipeline{grid-template-columns:1fr 1fr !important;}
@@ -191,6 +206,8 @@
             <video id="svc-vid-3" src="vfx-clip.mp4#t=65" poster="vfx-clip.jpg" muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.5);transform-origin:48% center;"></video>
             <div style="position:absolute;top:0;left:0;width:46%;height:30%;background:radial-gradient(ellipse at top left, #000 52%, rgba(0,0,0,0) 85%);pointer-events:none;"></div>
             <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(8,8,10,.55) 0%, transparent 55%);pointer-events:none;opacity:{{ svcVeil3 }};transition:opacity .4s;"></div>
+            <!-- clay-sculpt footage is stark white; this scrim + vignette knocks it back to a cinematic dark tone (text stays hidden behind the 1.5x crop) -->
+            <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(6,6,8,.48),rgba(6,6,8,.48)),radial-gradient(ellipse at 50% 42%, rgba(6,6,8,0) 25%, rgba(6,6,8,.6) 100%);"></div>
           </div>
           <div style="position:relative;padding:24px 22px 30px;display:flex;flex-direction:column;min-height:150px;">
             <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:rgba(242,242,244,.4);">04</span>
@@ -369,14 +386,14 @@
 
         <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:16px;">
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:16px;">
-            <input value="{{ fName }}" onChange="{{ setName }}" type="text" placeholder="Name" required style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:#f2f2f4;box-shadow:0 0 0 3px rgba(242,242,244,.25);" />
-            <input value="{{ fEmail }}" onChange="{{ setEmail }}" type="email" placeholder="Email" required style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:#f2f2f4;box-shadow:0 0 0 3px rgba(242,242,244,.25);" />
+            <input value="{{ fName }}" onChange="{{ setName }}" type="text" placeholder="Name" required aria-label="Your name" name="name" autocomplete="name" style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:#f2f2f4;box-shadow:0 0 0 3px rgba(242,242,244,.25);" />
+            <input value="{{ fEmail }}" onChange="{{ setEmail }}" type="email" placeholder="Email" required aria-label="Your email" name="email" autocomplete="email" inputmode="email" style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:#f2f2f4;box-shadow:0 0 0 3px rgba(242,242,244,.25);" />
           </div>
-          <input value="{{ fCompany }}" onChange="{{ setCompany }}" type="text" placeholder="Company (optional)" style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:#f2f2f4;box-shadow:0 0 0 3px rgba(242,242,244,.25);" />
-          <textarea value="{{ fMessage }}" onChange="{{ setMessage }}" placeholder="Your message" required rows="5" style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1.5 'Archivo';color:#f2f2f4;outline:none;resize:vertical;transition:.2s;" style-focus="border-color:#f2f2f4;box-shadow:0 0 0 3px rgba(242,242,244,.25);"></textarea>
+          <input value="{{ fCompany }}" onChange="{{ setCompany }}" type="text" placeholder="Company (optional)" aria-label="Company (optional)" name="company" autocomplete="organization" style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1 'Archivo';color:#f2f2f4;outline:none;transition:.2s;" style-focus="border-color:#f2f2f4;box-shadow:0 0 0 3px rgba(242,242,244,.25);" />
+          <textarea value="{{ fMessage }}" onChange="{{ setMessage }}" placeholder="Your message" required rows="5" aria-label="Your message" name="message" style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:15px 16px;font:500 14px/1.5 'Archivo';color:#f2f2f4;outline:none;resize:vertical;transition:.2s;" style-focus="border-color:#f2f2f4;box-shadow:0 0 0 3px rgba(242,242,244,.25);"></textarea>
           <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
             <button type="submit" style="background:#f2f2f4;color:#0a0a0c;padding:15px 28px;border-radius:100px;font:600 14px/1 'Archivo';white-space:nowrap;border:1px solid #f2f2f4;cursor:pointer;transition:.25s;" style-hover="background:transparent;color:#f2f2f4;">Send Message</button>
-            <span style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:{{ accent }};opacity:{{ sentOpacity }};transition:opacity .3s;">{{ sentMsg }}</span>
+            <span role="status" aria-live="polite" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:{{ accent }};opacity:{{ sentOpacity }};transition:opacity .3s;">{{ sentMsg }}</span>
           </div>
         </form>
       </div>
@@ -459,8 +476,12 @@ class Component extends DCLogic {
             if (this._reduce || canHover) return;   // desktop keeps hover-to-play
             v.muted = true; v.playsInline = true;
             if (START && v.currentTime < START) { try { v.currentTime = START; } catch (e) {} }
-            const p = v.play(); if (p && p.catch) p.catch(() => {});
+            const doPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+            // VFX card (3): hold the poster a beat before the clip starts
+            if (i === 3) { clearTimeout(v._playDelay); v._playDelay = setTimeout(doPlay, 1000); }
+            else { doPlay(); }
           } else if (!canHover) {
+            if (v._playDelay) { clearTimeout(v._playDelay); v._playDelay = null; }
             try { v.pause(); } catch (e) {}
           }
         });
@@ -575,11 +596,16 @@ class Component extends DCLogic {
         const s = svcStart[i] || 0;
         if (s && v.currentTime < s) { try { v.currentTime = s; } catch (e) {} }
         if (this._reduce) return;
-        const p = v.play(); if (p && p.catch) p.catch(() => {});
+        const startPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+        // VFX card (3): hold the poster a beat before the clip starts
+        if (this._svcPlayTimer) { clearTimeout(this._svcPlayTimer); this._svcPlayTimer = null; }
+        if (i === 3) { this._svcPlayTimer = setTimeout(startPlay, 1000); }
+        else { startPlay(); }
       }
     };
     const svcLeave = (i) => () => {
       this.setState({ svcHover: -1 });
+      if (this._svcPlayTimer) { clearTimeout(this._svcPlayTimer); this._svcPlayTimer = null; }
       const v = document.getElementById('svc-vid-' + i);
       if (v) { v.pause(); try { v.currentTime = svcStart[i] || 0; } catch (e) {} }
     };
