@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shown without opening it — UFX</title>
+<meta name="description" content="A three-floor London home, captured and rebuilt as a navigable real-time twin. Hold any floor to see the measured geometry underneath.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg">
+<meta property="og:title" content="Shown without opening it — UFX">
+<meta property="og:description" content="A three-floor London home, captured and rebuilt as a navigable real-time twin.">
+<meta property="og:image" content="https://ufx.agency/kingsx-ground.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;background:#0a0a0c;color:#f2f2f4;
+    font-family:'Archivo',system-ui,sans-serif;
+    font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  :focus-visible{outline:2px solid #E8E8EC;outline-offset:3px;border-radius:3px;}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;}
+
+  /* ---- masthead ---- */
+  .top{padding:28px 0;border-bottom:1px solid rgba(255,255,255,.10);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .logo{font-weight:800;font-size:19px;letter-spacing:.16em;text-decoration:none;}
+  .top .tag{font-size:9.5px;color:rgba(242,242,244,.45);}
+
+  /* ---- hero ---- */
+  .hero{padding:clamp(64px,11vw,132px) 0 clamp(40px,6vw,64px);}
+  .kicker{font-size:10px;color:rgba(242,242,244,.5);margin-bottom:26px;}
+  h1{
+    margin:0;font-weight:700;letter-spacing:-.028em;
+    font-size:clamp(34px,6.6vw,74px);line-height:1.03;text-wrap:balance;max-width:16ch;
+  }
+  h1 .dim{color:rgba(242,242,244,.42);}
+  .lede{
+    margin:30px 0 0;max-width:56ch;font-size:clamp(16px,1.5vw,19px);
+    color:rgba(242,242,244,.72);
+  }
+
+  /* ---- clips ---- */
+  .clips{padding-bottom:clamp(48px,7vw,80px);}
+  .hint{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    padding:16px 0 22px;font-size:10px;color:rgba(242,242,244,.5);
+  }
+  .hint .dot{width:5px;height:5px;border-radius:50%;background:#E8E8EC;flex:none;}
+  .stack{display:grid;gap:clamp(14px,2vw,22px);}
+  @media(min-width:900px){ .stack{grid-template-columns:repeat(3,1fr);} }
+
+  .clip{
+    position:relative;border:1px solid rgba(255,255,255,.10);background:#0c0c0e;
+    overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;
+    padding:0;width:100%;display:block;text-align:left;color:inherit;font:inherit;
+  }
+  .frame{position:relative;aspect-ratio:16/9;background:#111114;overflow:hidden;}
+  .frame video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .frame .cloud{opacity:0;transition:opacity .3s ease;pointer-events:none;}
+  .clip.on .frame .cloud{opacity:1;}
+
+  .badge{
+    position:absolute;left:12px;top:12px;z-index:2;
+    font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;
+    padding:5px 8px;border:1px solid rgba(255,255,255,.2);
+    background:rgba(8,8,10,.72);color:#E8E8EC;
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  }
+  .clip .badge b{font-weight:500;opacity:.45;transition:opacity .25s ease;}
+  .clip.on .badge b.render{opacity:.45;}
+  .clip.on .badge b.cloud{opacity:1;}
+  .clip .badge b.render{opacity:1;}
+
+  .caption{
+    display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+    padding:14px 16px;border-top:1px solid rgba(255,255,255,.10);
+  }
+  .caption .name{font-weight:600;font-size:14.5px;letter-spacing:-.01em;}
+  .caption .n{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:rgba(242,242,244,.4);}
+
+  /* ---- argument ---- */
+  .band{border-top:1px solid rgba(255,255,255,.10);padding:clamp(56px,8vw,96px) 0;}
+  .band h2{
+    margin:0 0 14px;font-weight:700;letter-spacing:-.022em;
+    font-size:clamp(25px,3.4vw,40px);line-height:1.1;text-wrap:balance;max-width:20ch;
+  }
+  .band .sub{margin:0;max-width:58ch;color:rgba(242,242,244,.72);}
+  .points{
+    display:grid;gap:1px;background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.12);margin-top:40px;
+  }
+  @media(min-width:820px){ .points{grid-template-columns:repeat(3,1fr);} }
+  .point{background:#0a0a0c;padding:26px 24px;}
+  .point .n{font-size:9.5px;color:rgba(242,242,244,.42);display:block;margin-bottom:14px;}
+  .point h3{margin:0 0 8px;font-size:16.5px;font-weight:600;letter-spacing:-.012em;}
+  .point p{margin:0;font-size:14.5px;line-height:1.6;color:rgba(242,242,244,.65);}
+
+  /* ---- second proof ---- */
+  .named{display:grid;gap:clamp(24px,4vw,48px);align-items:center;}
+  @media(min-width:860px){ .named{grid-template-columns:1.05fr .95fr;} }
+  .named img{width:100%;height:auto;display:block;border:1px solid rgba(255,255,255,.10);}
+  .named .body p{color:rgba(242,242,244,.72);margin:0 0 16px;max-width:52ch;}
+  .named .body p:last-of-type{margin-bottom:0;}
+  .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .links a{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.13em;
+    text-transform:uppercase;text-decoration:none;padding:11px 15px;
+    border:1px solid rgba(255,255,255,.22);color:#E8E8EC;transition:background .2s ease,border-color .2s ease;
+  }
+  .links a:hover{background:rgba(232,232,236,.08);border-color:rgba(255,255,255,.42);}
+
+  /* ---- close ---- */
+  .close{border-top:1px solid rgba(255,255,255,.10);padding:clamp(56px,8vw,96px) 0;}
+  .close h2{margin:0 0 16px;font-weight:700;font-size:clamp(24px,3.2vw,38px);letter-spacing:-.022em;line-height:1.1;max-width:22ch;text-wrap:balance;}
+  .close p{margin:0;max-width:52ch;color:rgba(242,242,244,.72);}
+  .cta{
+    display:inline-block;margin-top:30px;text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+    padding:15px 26px;background:#E8E8EC;color:#0a0a0c;font-weight:500;
+    transition:opacity .2s ease;
+  }
+  .cta:hover{opacity:.85;}
+
+  footer{border-top:1px solid rgba(255,255,255,.10);padding:30px 0 56px;}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;}
+  footer p{margin:0;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,242,244,.4);}
+
+  @media(prefers-reduced-motion:reduce){
+    *{transition-duration:.01ms !important;animation-duration:.01ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="https://ufx.agency">UFX</a>
+    <span class="tag mono">Real-time technology studio</span>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker mono">Digital twin · residential capture</p>
+      <h1>A three-floor London home.<br><span class="dim">I won't say whose.</span></h1>
+      <p class="lede">
+        Captured in full and rebuilt as a real-time twin — every floor walkable, from the basement
+        kitchen up. What follows is the actual capture, not a render of it.
+      </p>
+    </div>
+  </section>
+
+  <section class="clips">
+    <div class="wrap">
+      <div class="hint mono">
+        <span class="dot"></span>
+        <span>Hold a floor — or tap, on a phone — to see the measured geometry underneath</span>
+      </div>
+
+      <div class="stack">
+
+        <button class="clip" type="button" aria-pressed="false">
+          <div class="frame">
+            <span class="badge"><b class="render">RENDER</b> / <b class="cloud">POINT CLOUD</b></span>
+            <video class="render" src="kingsx-ground.mp4" poster="kingsx-ground.jpg" muted loop playsinline preload="metadata"></video>
+            <video class="cloud" src="kingsx-ground-pointcloud.mp4" poster="kingsx-ground-pointcloud.jpg" muted loop playsinline preload="none"></video>
+          </div>
+          <div class="caption"><span class="name">Ground Floor</span><span class="n">01</span></div>
+        </button>
+
+        <button class="clip" type="button" aria-pressed="false">
+          <div class="frame">
+            <span class="badge"><b class="render">RENDER</b> / <b class="cloud">POINT CLOUD</b></span>
+            <video class="render" src="kingsx-2nd.mp4" poster="kingsx-2nd.jpg" muted loop playsinline preload="metadata"></video>
+            <video class="cloud" src="kingsx-2nd-pointcloud.mp4" poster="kingsx-2nd-pointcloud.jpg" muted loop playsinline preload="none"></video>
+          </div>
+          <div class="caption"><span class="name">Second Floor</span><span class="n">02</span></div>
+        </button>
+
+        <button class="clip" type="button" aria-pressed="false">
+          <div class="frame">
+            <span class="badge"><b class="render">RENDER</b> / <b class="cloud">POINT CLOUD</b></span>
+            <video class="render" src="kingsx-basement-kitchen.mp4" poster="kingsx-basement-kitchen.jpg" muted loop playsinline preload="metadata"></video>
+            <video class="cloud" src="kingsx-basement-kitchen-pointcloud.mp4" poster="kingsx-basement-kitchen-pointcloud.jpg" muted loop playsinline preload="none"></video>
+          </div>
+          <div class="caption"><span class="name">Basement Kitchen</span><span class="n">03</span></div>
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>The point isn't that it's pretty.</h2>
+      <p class="sub">
+        A film can be beautiful and still be a picture of a room. Underneath this one is measured
+        geometry — which is why the questions that normally force a second visit can be answered
+        without one.
+      </p>
+
+      <div class="points">
+        <div class="point">
+          <span class="n mono">01 / Access</span>
+          <h3>A vetted buyer walks it, under NDA</h3>
+          <p>End to end, from anywhere, at whatever hour suits them — without a stranger being
+            walked through an occupied house.</p>
+        </div>
+        <div class="point">
+          <span class="n mono">02 / Parallel</span>
+          <h3>Everyone the sale needs, the same week</h3>
+          <p>Spouse, architect, surveyor, lender — each independently, none of them adding another
+            appointment to the diary.</p>
+        </div>
+        <div class="point">
+          <span class="n mono">03 / Record</span>
+          <h3>Real dimensions, and a dated one</h3>
+          <p>Fit-out, clearance and insurance come off the capture. At exchange it stands as a
+            record of condition.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap named">
+      <img src="featured.webp" alt="Casepak digital twin — real-time still from the rebuilt facility" loading="lazy">
+      <div class="body">
+        <p class="kicker mono">Where we can be named</p>
+        <h2>Casepak</h2>
+        <p>
+          The residence stays anonymous. This one doesn't need to. We captured Casepak's recycling
+          facility at roughly 200,000 drone and LiDAR images and rebuilt it as a real-time
+          environment the business now runs for training, maintenance and planning.
+        </p>
+        <p>
+          Volinga featured it as a showcase; Recycle Now covered it separately. Same pipeline, same
+          precision — a different answer to the question of what gets a name.
+        </p>
+        <div class="links">
+          <a href="https://ufx.agency/Service.dc.html">The digital twin service</a>
+          <a href="https://ufx.agency/#featured">Casepak case study</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap">
+      <h2>If an instruction comes up the vendor won't allow viewings on —</h2>
+      <p>
+        that's the one worth a conversation. A capture takes a day on site; the twin follows.
+        Reply to the email that brought you here, or use the address below.
+      </p>
+      <a class="cta" href="mailto:kay@upworldfx.com?subject=Digital%20twin%20%E2%80%94%20enquiry">Start a conversation</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>UFX · Real-time technology studio</p>
+    <p>ufx.agency</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var mq = function (q) { return window.matchMedia ? window.matchMedia(q).matches : false; };
+  var reduce = mq('(prefers-reduced-motion: reduce)');
+  var canHover = mq('(hover: hover) and (pointer: fine)');
+  var clips = [].slice.call(document.querySelectorAll('.clip'));
+
+  // Autoplay the render pass once it is on screen; keep the heavy point-cloud
+  // pass unloaded until someone actually asks for it.
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target.querySelector('video.render');
+        if (!v) return;
+        if (en.isIntersecting) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.25 });
+    clips.forEach(function (c) { io.observe(c); });
+  }
+
+  clips.forEach(function (clip) {
+    var render = clip.querySelector('video.render');
+    var cloud  = clip.querySelector('video.cloud');
+    if (!render || !cloud) return;
+    var loaded = false, on = false;
+
+    // The two passes share a camera move but not a duration, so lock them by
+    // PROGRESS rather than raw time, and scale playbackRate so they stay
+    // matched across loops instead of drifting apart.
+    function show() {
+      if (on) return;
+      on = true;
+      clip.classList.add('on');
+      clip.setAttribute('aria-pressed', 'true');
+      if (!loaded) { cloud.preload = 'auto'; cloud.load(); loaded = true; }
+      var apply = function () {
+        try {
+          cloud.muted = true; cloud.loop = true;
+          var rd = render.duration || 0, cd = cloud.duration || 0;
+          if (rd && cd) {
+            cloud.playbackRate = cd / rd;
+            cloud.currentTime = (render.currentTime / rd) * cd;
+          }
+          render.pause();
+          if (!reduce) { var p = cloud.play(); if (p && p.catch) p.catch(function(){}); }
+        } catch (e) {}
+      };
+      if (cloud.readyState >= 1) apply();
+      else cloud.addEventListener('loadedmetadata', apply, { once: true });
+    }
+
+    function hide() {
+      if (!on) return;
+      on = false;
+      clip.classList.remove('on');
+      clip.setAttribute('aria-pressed', 'false');
+      try {
+        var rd = render.duration || 0, cd = cloud.duration || 0;
+        if (rd && cd) render.currentTime = (cloud.currentTime / cd) * rd;
+        cloud.pause();
+        if (!reduce) { var p = render.play(); if (p && p.catch) p.catch(function(){}); }
+      } catch (e) {}
+    }
+
+    // Mice peek on hover; touch has no hover, so there a tap latches it on and
+    // a second tap releases — otherwise the whole mechanic is invisible on the
+    // phone most of these will be opened on. Branch on the device's actual
+    // capability rather than on pointerType, which synthetic events leave unset.
+    if (canHover) {
+      clip.addEventListener('mouseenter', show);
+      clip.addEventListener('mouseleave', hide);
+    } else {
+      clip.addEventListener('click', function () { on ? hide() : show(); });
+    }
+    clip.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); on ? hide() : show(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
