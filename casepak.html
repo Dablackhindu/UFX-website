@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casepak MRF digital twin — UFX</title>
+<meta name="description" content="A working recycling plant in Leicester, captured from the air while it ran and rebuilt as a walkable, measured twin the site uses for training and planning.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg">
+<meta property="og:title" content="Casepak MRF digital twin — UFX">
+<meta property="og:description" content="A working recycling plant, captured while it ran and rebuilt as a walkable, measured twin.">
+<meta property="og:image" content="https://ufx.agency/casepak-orbit.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;background:#0a0a0c;}
+  body{
+    margin:0;background:#0a0a0c;color:#f2f2f4;
+    font-family:'Archivo',system-ui,sans-serif;
+    font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  :focus-visible{outline:2px solid #E8E8EC;outline-offset:3px;border-radius:3px;}
+  img,video{max-width:100%;}
+
+  .wrap{max-width:1400px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;}
+  .muted{color:rgba(242,242,244,.72);}
+
+  /* ---- masthead ---- */
+  .top{padding:28px 0;border-bottom:1px solid rgba(255,255,255,.10);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .logo{font-weight:800;font-size:19px;letter-spacing:.16em;text-decoration:none;}
+  .top .tag{font-size:9.5px;color:rgba(242,242,244,.45);}
+
+  /* ---- hero ---- */
+  .hero{padding:clamp(64px,11vw,132px) 0 clamp(36px,5vw,56px);}
+  .kicker{font-size:10px;color:rgba(242,242,244,.5);margin:0 0 26px;}
+  h1{
+    margin:0;font-weight:700;letter-spacing:-.028em;
+    font-size:clamp(34px,6.6vw,74px);line-height:1.03;text-wrap:balance;max-width:17ch;
+  }
+  h1 .dim{color:rgba(242,242,244,.42);}
+  .lede{margin:30px 0 0;max-width:58ch;font-size:clamp(16px,1.5vw,19px);color:rgba(242,242,244,.72);}
+
+  /* ---- media frames ---- */
+  .frame{position:relative;aspect-ratio:16/9;background:#111114;border:1px solid rgba(255,255,255,.10);overflow:hidden;}
+  .frame video,.frame img,.frame iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border:0;}
+  .badge{
+    position:absolute;left:12px;top:12px;z-index:2;
+    font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    padding:5px 8px;border:1px solid rgba(255,255,255,.2);
+    background:rgba(8,8,10,.72);color:#E8E8EC;
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  }
+  .badge b{font-weight:500;}
+
+  /* ---- figures ---- */
+  .figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);margin-top:clamp(14px,1.6vw,20px);}
+  @media(min-width:820px){ .figs{grid-template-columns:repeat(4,1fr);} }
+  .figs div{background:#0a0a0c;padding:22px 22px 20px;}
+  .figs strong{display:block;font-weight:700;font-size:clamp(26px,3vw,36px);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums;}
+  .figs span{display:block;margin-top:8px;font-size:13.5px;line-height:1.45;color:rgba(242,242,244,.6);}
+
+  /* ---- bands ---- */
+  .band{border-top:1px solid rgba(255,255,255,.10);padding:clamp(56px,8vw,96px) 0;}
+  .band h2{
+    margin:0 0 14px;font-weight:700;letter-spacing:-.022em;
+    font-size:clamp(25px,3.4vw,40px);line-height:1.1;text-wrap:balance;max-width:22ch;
+  }
+  .band .sub{margin:0;max-width:60ch;color:rgba(242,242,244,.72);}
+  .note{font-size:14.5px;line-height:1.6;color:rgba(242,242,244,.55);}
+
+  /* on site */
+  .site{display:grid;gap:clamp(14px,1.6vw,20px);margin-top:36px;}
+  @media(min-width:900px){ .site{grid-template-columns:.62fr 1fr 1fr;align-items:start;} }
+  .site img{width:100%;height:auto;display:block;border:1px solid rgba(255,255,255,.10);}
+  figure{margin:0;}
+  figcaption{padding-top:10px;font-size:9.5px;color:rgba(242,242,244,.45);}
+  .site ul{margin:18px 0 0;padding:0;list-style:none;border-top:1px solid rgba(255,255,255,.10);}
+  .site li{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.10);font-size:15px;color:rgba(242,242,244,.72);}
+  .site li b{color:#f2f2f4;font-weight:600;}
+  .site .copy p{margin:0;color:rgba(242,242,244,.72);}
+
+  /* drone grid */
+  .grid{display:grid;gap:clamp(14px,1.6vw,20px);margin-top:36px;}
+  @media(min-width:760px){ .grid{grid-template-columns:repeat(3,1fr);} }
+  .clip{
+    position:relative;display:block;width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;
+    cursor:zoom-in;-webkit-tap-highlight-color:transparent;
+  }
+  .clip .open{
+    position:absolute;right:10px;bottom:10px;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    background:rgba(8,8,10,.72);color:#E8E8EC;padding:6px 8px;border:1px solid rgba(255,255,255,.2);opacity:.85;
+  }
+  .cap{padding:14px 2px 0;}
+  .cap .k{font-size:9.5px;color:rgba(242,242,244,.45);display:block;margin-bottom:6px;}
+  .cap b{display:block;font-weight:600;font-size:15.5px;letter-spacing:-.01em;}
+  .cap span.d{display:block;font-size:14px;color:rgba(242,242,244,.6);margin-top:2px;}
+
+  /* twin + volinga split */
+  .split{display:grid;gap:clamp(24px,4vw,48px);align-items:start;margin-top:36px;}
+  @media(min-width:900px){ .split{grid-template-columns:1.1fr .9fr;} }
+  .split .body p{margin:0 0 16px;color:rgba(242,242,244,.72);max-width:54ch;}
+  .frame video[controls]{object-fit:contain;background:#000;}
+  .meta{display:flex;flex-wrap:wrap;gap:10px 18px;justify-content:space-between;align-items:center;padding-top:12px;font-size:9.5px;color:rgba(242,242,244,.45);}
+
+  /* film chapters */
+  .chapters{display:inline-flex;border:1px solid rgba(255,255,255,.18);}
+  .chapters button{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+    background:transparent;color:rgba(242,242,244,.6);border:0;padding:9px 12px;cursor:pointer;
+  }
+  .chapters button[aria-pressed="true"]{background:#E8E8EC;color:#0a0a0c;}
+
+  /* youtube click-to-load */
+  .yt{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#000;cursor:pointer;}
+  .yt .play{
+    position:absolute;right:14px;top:14px;z-index:2;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+    padding:14px 22px;background:#E8E8EC;color:#0a0a0c;font-weight:500;
+  }
+  .yt:hover .play{opacity:.88;}
+
+  blockquote{margin:24px 0 0;padding:0 0 0 18px;border-left:2px solid rgba(232,232,236,.5);}
+  blockquote p{margin:0 0 10px !important;color:#f2f2f4 !important;font-size:17px;}
+  blockquote cite{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,242,244,.45);}
+
+  .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .links a{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.13em;
+    text-transform:uppercase;text-decoration:none;padding:11px 15px;
+    border:1px solid rgba(255,255,255,.22);color:#E8E8EC;transition:background .2s ease,border-color .2s ease;
+  }
+  .links a:hover{background:rgba(232,232,236,.08);border-color:rgba(255,255,255,.42);}
+
+  /* ---- close ---- */
+  .close{border-top:1px solid rgba(255,255,255,.10);padding:clamp(56px,8vw,96px) 0;}
+  .close h2{margin:0 0 16px;font-weight:700;font-size:clamp(24px,3.2vw,38px);letter-spacing:-.022em;line-height:1.1;max-width:22ch;text-wrap:balance;}
+  .close p{margin:0;max-width:52ch;color:rgba(242,242,244,.72);}
+  .cta{
+    display:inline-block;margin-top:30px;text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+    padding:15px 26px;background:#E8E8EC;color:#0a0a0c;font-weight:500;transition:opacity .2s ease;
+  }
+  .cta:hover{opacity:.85;}
+  footer{border-top:1px solid rgba(255,255,255,.10);padding:30px 0 56px;}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;}
+  footer p{margin:0;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,242,244,.4);}
+
+  /* lightbox */
+  dialog{padding:0;border:1px solid rgba(255,255,255,.18);background:#000;max-width:min(1200px,94vw);width:100%;color:#f2f2f4;}
+  dialog::backdrop{background:rgba(5,5,7,.88);}
+  dialog video{display:block;width:100%;height:auto;}
+  dialog .lbbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;font-size:9.5px;color:rgba(242,242,244,.6);}
+  dialog button{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:#E8E8EC;border:1px solid rgba(255,255,255,.22);padding:7px 10px;cursor:pointer;}
+
+  @media(prefers-reduced-motion:reduce){
+    *{transition-duration:.01ms !important;animation-duration:.01ms !important;}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="https://ufx.agency">UFX</a>
+    <span class="tag mono">Real-time technology studio</span>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker mono">Digital twin · Casepak MRF, Leicester</p>
+      <h1>A working recycling plant.<br><span class="dim">Captured while it ran.</span></h1>
+      <p class="lede">
+        We flew the capture through Casepak's live facility and rebuilt it as a walkable, measured
+        twin of the whole plant. Casepak now uses it to train new starters, plan changes and show
+        visitors round, without stopping the line.
+      </p>
+    </div>
+  </section>
+
+  <section style="padding-bottom:clamp(48px,7vw,80px)">
+    <div class="wrap">
+      <div class="frame">
+        <video data-auto muted loop playsinline preload="metadata" poster="casepak-orbit.jpg" src="casepak-orbit.mp4" aria-label="Drone orbit around the NRT Max optical sorter"></video>
+        <span class="badge">Drone orbit · <b>NRT Max optical sorter</b></span>
+      </div>
+      <div class="figs">
+        <div><strong>200k+</strong><span>drone and ground images processed</span></div>
+        <div><strong>Sub-mm</strong><span>survey-grade point cloud accuracy</span></div>
+        <div><strong>60+ fps</strong><span>at 4K, real time</span></div>
+        <div><strong>~£10k/yr</strong><span>client-confirmed operational saving</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker mono">On site</p>
+      <h2>Not an empty warehouse.</h2>
+      <div class="site">
+        <figure>
+          <img src="casepak-onsite-drone.jpg" alt="UFX founder in hard hat and hi-vis on a gantry, holding a drone controller above a moving conveyor" width="1050" height="1400" loading="lazy">
+          <figcaption class="mono">Flying from the gantry</figcaption>
+        </figure>
+        <figure>
+          <img src="casepak-onsite-walkway.jpg" alt="UFX founder on a yellow-railed walkway beside a large blue sorting machine" width="1400" height="1050" loading="lazy">
+          <figcaption class="mono">Walking the line before a flight</figcaption>
+        </figure>
+        <div class="copy">
+          <p>Every aerial shot was planned and flown indoors, between steel gantries, overhead ducting,
+            safety netting and moving conveyors, while the plant was running.</p>
+          <ul>
+            <li><b>Aerial and ground capture.</b> Drone orbits and passes, plus ground-level photogrammetry.</li>
+            <li><b>One capture, two uses.</b> The same footage fed the 3D rebuild and was cut into the explainer videos inside the twin.</li>
+            <li><b>Site safety.</b> Full PPE, working around live plant alongside the site team.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker mono">From the air</p>
+      <h2>The line, from above.</h2>
+      <div class="grid">
+        <figure>
+          <button class="clip" type="button" data-src="casepak-drone-nrt-5.mp4" data-title="NRT optical sorter" aria-label="Expand NRT optical sorter drone clip">
+            <span class="frame" style="display:block">
+              <video data-auto muted loop playsinline preload="none" poster="casepak-drone-nrt-5.jpg" src="casepak-drone-nrt-5.mp4"></video>
+              <span class="open">Expand</span>
+            </span>
+          </button>
+          <figcaption class="cap"><span class="k mono">Drone · low pass</span><b>NRT optical sorter</b><span class="d">Flown low over the belt as material comes off the sorter.</span></figcaption>
+        </figure>
+        <figure>
+          <button class="clip" type="button" data-src="casepak-drone-balers.mp4" data-title="Balers: Twin and Mega" aria-label="Expand balers drone clip">
+            <span class="frame" style="display:block">
+              <video data-auto muted loop playsinline preload="none" poster="casepak-drone-balers.jpg" src="casepak-drone-balers.mp4"></video>
+              <span class="open">Expand</span>
+            </span>
+          </button>
+          <figcaption class="cap"><span class="k mono">Drone · top-down</span><b>Balers: Twin and Mega</b><span class="d">Looking straight down on the baling line.</span></figcaption>
+        </figure>
+        <figure>
+          <button class="clip" type="button" data-src="casepak-drone-zac.mp4" data-title="ZAC system" aria-label="Expand ZAC system drone clip">
+            <span class="frame" style="display:block">
+              <video data-auto muted loop playsinline preload="none" poster="casepak-drone-zac.jpg" src="casepak-drone-zac.mp4"></video>
+              <span class="open">Expand</span>
+            </span>
+          </button>
+          <figcaption class="cap"><span class="k mono">Drone · orbit</span><b>ZAC system</b><span class="d">An orbit around the ZAC system on the sorting line.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker mono">The twin</p>
+      <h2>Every machine, one click away.</h2>
+      <div class="split">
+        <div>
+          <div class="frame"><video controls playsinline preload="metadata" poster="casepak-teaser.jpg" src="casepak-teaser.mp4"></video></div>
+          <div class="meta mono"><span>Twin teaser · 00:35</span><span>Sound on</span></div>
+        </div>
+        <div class="body">
+          <p>The drone and ground capture became survey-grade point cloud and mesh data, rebuilt as a
+            real-time environment that runs in the browser. Each machine has a hotspot that opens its
+            specs, maintenance data and a short video cut from the aerial footage.</p>
+          <p>Casepak confirmed savings of about £10,000 a year. The twin replaced staffed onboarding
+            and school visits, and cut the engineering callouts needed for routine measurements.</p>
+          <p class="note">Hotspot and UI systems · Gaussian splatting · RealityCapture · live data over
+            APIs and WebSockets · Pixel Streaming for cloud delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker mono">The film</p>
+      <h2>How the plant actually works.</h2>
+      <p class="sub">A six-minute explainer, produced and presented by UFX and filmed inside the
+        facility. It walks through how the plant turns household recycling into material that can be
+        sold. After it gained traction on LinkedIn, Recycle Now asked to use it on their own channels.</p>
+      <div style="margin-top:36px">
+        <div class="frame"><video id="film" controls playsinline preload="metadata" poster="casepak-film.jpg" src="casepak-film-1.mp4"></video></div>
+        <div class="meta mono">
+          <span class="chapters" role="group" aria-label="Film part">
+            <button type="button" aria-pressed="true" data-part="1">Part 1 · 0:00–3:00</button>
+            <button type="button" aria-pressed="false" data-part="2">Part 2 · 3:00–6:01</button>
+          </span>
+          <span>06:01 · sound on · plays straight through</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker mono">Independent reference</p>
+      <h2>Written up by someone who isn't us.</h2>
+      <div class="split">
+        <div>
+          <div class="frame">
+            <button class="yt" type="button" data-yt="ZcdBTmSuNTE" aria-label="Play Volinga's Casepak case study video on YouTube">
+              <img src="casepak-volinga.jpg" alt="" width="1280" height="720" loading="lazy">
+              <span class="play">Play · YouTube</span>
+            </button>
+          </div>
+          <div class="meta mono"><span>Volinga · Casepak case study</span><span>Loads from YouTube on click</span></div>
+        </div>
+        <div class="body">
+          <p>Volinga, the company whose software carries the twin in real time, published the Casepak
+            build as a case study on their own site and channel.</p>
+          <blockquote>
+            <p>“Casepak, a complex industrial recycling facility, required a highly accurate digital
+              twin to support training, maintenance, and operational planning. Traditional methods fell
+              short of the required millimetre precision and real-time usability. That’s where UFX, a 3D and digital production team,
+              stepped in.”</p>
+            <cite>Volinga · case study</cite>
+          </blockquote>
+          <div class="links">
+            <a href="https://web.volinga.ai/building-a-real-time-interactive-digital-twin-for-casepak/" target="_blank" rel="noopener">Read the case study ↗</a>
+            <a href="https://youtu.be/ZcdBTmSuNTE" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap">
+      <h2>If your plant can't stop for training or a layout change —</h2>
+      <p>
+        that's the one worth a conversation. We capture around live operations, and the twin
+        follows. Reply to the email that brought you here, or use the address below.
+      </p>
+      <a class="cta" href="mailto:kay@upworldfx.com?subject=MRF%20digital%20twin%20%E2%80%94%20enquiry">Start a conversation</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>UFX · Real-time technology studio</p>
+    <p>ufx.agency</p>
+  </div>
+</footer>
+
+<dialog id="lb" aria-label="Drone clip">
+  <div class="lbbar mono"><span id="lbt"></span><button type="button" id="lbx">Close</button></div>
+  <video id="lbv" muted loop playsinline controls></video>
+</dialog>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var play = function (v) { var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+
+  // Silent loops play only while on screen.
+  var loops = [].slice.call(document.querySelectorAll('video[data-auto]'));
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.muted = true; play(en.target); } else { en.target.pause(); }
+      });
+    }, { threshold: 0.25 });
+    loops.forEach(function (v) { io.observe(v); });
+  }
+
+  // Drone clips open full size.
+  var lb = document.getElementById('lb'), lbv = document.getElementById('lbv'), lbt = document.getElementById('lbt');
+  var film = document.getElementById('film');
+  [].forEach.call(document.querySelectorAll('.clip'), function (btn) {
+    btn.addEventListener('click', function () {
+      film.pause();
+      lbt.textContent = btn.dataset.title;
+      lbv.src = btn.dataset.src;
+      if (lb.showModal) lb.showModal(); else lb.setAttribute('open', '');
+      play(lbv);
+    });
+  });
+  function closeLb() { lbv.pause(); if (lb.close) lb.close(); else lb.removeAttribute('open'); }
+  document.getElementById('lbx').addEventListener('click', closeLb);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
+  lb.addEventListener('close', function () { lbv.pause(); });
+
+  // The film is two encoded halves played as one piece.
+  var part = 1, cbtns = [].slice.call(document.querySelectorAll('.chapters button'));
+  function setPart(n, autoplay) {
+    part = n; film.src = 'casepak-film-' + n + '.mp4';
+    cbtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.part == n)); });
+    if (autoplay) play(film);
+  }
+  cbtns.forEach(function (b) { b.addEventListener('click', function () { setPart(+b.dataset.part, true); }); });
+  film.addEventListener('ended', function () { if (part === 1) setPart(2, true); });
+
+  // YouTube: nothing third-party loads until someone asks for it.
+  [].forEach.call(document.querySelectorAll('.yt'), function (btn) {
+    btn.addEventListener('click', function () {
+      film.pause();
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.yt + '?autoplay=1&rel=0';
+      f.title = btn.getAttribute('aria-label');
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      btn.replaceWith(f);
+    });
+  });
+})();
+</script>
+</body>
+</html>
